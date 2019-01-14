@@ -21,7 +21,7 @@ class App extends React.Component<any, any>  {
                 {
                   links: [
                     { name: 'Module View', key: 'Module View', url: '/' },
-                    { name: 'Assets View', key: 'Asset View', url: '/Assets' },
+                    { name: 'Assest View', key: 'Asset View', url: '/Assets' },
                     { name: 'Pyramid view', key: 'Pyramid view', url: '/Pyramid' }
                   ]
                 }

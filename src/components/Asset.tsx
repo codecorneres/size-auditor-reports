@@ -1,7 +1,7 @@
 import 'react-bootstrap/dist/react-bootstrap';
 import * as React from 'react';
 import axios from 'axios';
-import {Table} from 'react-bootstrap';
+import { MDBDataTable } from 'mdbreact';
 class Asset extends React.Component<any, any>  {
     constructor(props: any) {
         super(props);
@@ -15,20 +15,23 @@ class Asset extends React.Component<any, any>  {
                     asset: "asset2",
                     sizeDifference: "+50"
                 }
-            ]
+            ],
+            
         };
         this.getRepositoryList = this.getRepositoryList.bind(this);
     }
     componentDidMount()
 	{
-		this.getRepositoryList(this);
+        this.getRepositoryList(this);
+        console.log(this.state.tableData);
+        const newFile = this.state.tableData.map((repository: any, index: number) => {
+
+            return { Serial: index+1,...repository};
+        });
+        this.setState({tableData: newFile });
     }
     getRepositoryList(that: any)
 	{
-		/*axios.get("https://jsonplaceholder.typicode.com/posts").then(response =>{
-			var data = [];
-			console.log("Data:",data);
-		});*/
 		axios.post('https://jsonplaceholder.typicode.com/posts',[
             {
                 asset: "asset1",
@@ -40,33 +43,45 @@ class Asset extends React.Component<any, any>  {
             }
         ])
 			.then(function (response) {
-                console.log(response.data);
+               // console.log(response.data);
 				// that.setState({tableData: response.data});
 			})
 			.catch(function (error) {
 			console.log(error);
 		});
 	}
-    render(): JSX.Element {
-        console.log(this.state.tableData)
+    render(): JSX.Element { 
+            const data = {
+              columns: [
+                {
+                  label: 'Serial',
+                  field: 'Serial',
+                  sort: 'asc',
+                  width: 150
+                },
+                {
+                  label: 'Asset',
+                  field: 'Asset',
+                  sort: 'asc',
+                  width: 270
+                },
+                {
+                  label: 'Size Difference',
+                  field: 'Size Difference',
+                  sort: 'asc',
+                  width: 200
+                }
+              ],
+              rows: this.state.tableData
+        }
         return (
-            <div>
-               <Table striped bordered condensed hover responsive className="text-left ">
-					<thead>
-						<tr>
-							<th>Serial</th>
-							<th>Asset</th>
-							<th>Size Difference</th>
-						</tr>
-					</thead>
-					<tbody>
-					{
-						this.state.tableData.map(function(repository: any, index: number){
-							return <tr key={index}><td>{index+1}</td><td >{repository.asset}</td><td>{repository.sizeDifference}</td></tr>;
-						})
-					}
-					</tbody>
-				 </Table>
+            <div className="Apps">
+                <MDBDataTable
+                striped
+                bordered
+                hover
+                data={data}
+                />
             </div>
         );
     }

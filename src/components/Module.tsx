@@ -1,7 +1,7 @@
 import 'react-bootstrap/dist/react-bootstrap';
 import * as React from 'react';
 import axios from 'axios';
-import {Table} from 'react-bootstrap';
+import { MDBDataTable } from 'mdbreact';
 
 class Module extends React.Component<any, any>  {
     constructor(props: any) {
@@ -33,15 +33,16 @@ class Module extends React.Component<any, any>  {
     }
     componentDidMount()
 	{
-		this.getRepositoryList(this);
+        this.getRepositoryList(this);
+        const newFile = this.state.tableData.map((repository: any, index: number) => {
+            return { Serial: index+1,...repository};
+        });
+        this.setState({tableData: newFile });
+        console.log(this.state.tableData);
     }
     
     getRepositoryList(that: any)
 	{
-		/*axios.get("https://jsonplaceholder.typicode.com/posts").then(response =>{
-			var data = [];
-			console.log("Data:",data);
-        });*/
 		axios.post('https://jsonplaceholder.typicode.com/posts',[
             {
                 "module":"module1.js",
@@ -63,40 +64,60 @@ class Module extends React.Component<any, any>  {
                 ]
             }
         ])
-			.then(function (response) {
-                // that.setState({tableData: response.data});
-			})
-			.catch(function (error) {
+		.then(function (response) {
+            // that.setState({tableData: response.data});
+		})
+		.catch(function (error) {
 			console.log(error);
 		});
 	}
     render(): JSX.Element {
+        /*this.state.tableData.sort(function(a: any,b: any){
+            return (a.sizeDifference) - (b.sizeDifference);
+        });*/
+        const data = {
+            columns: [
+              {
+                label: 'Serial',
+                field: 'Serial',
+                sort: 'asc',
+                width: 150
+              },
+              {
+                label: 'Module',
+                field: 'Module',
+                sort: 'asc',
+                width: 270
+              },
+              {
+                label: 'Size Difference',
+                field: 'Size Difference',
+                sort: 'asc',
+                width: 200
+              },
+              {
+                label: 'Assets Affecteed',
+                field: 'Assets Affecteed',
+                sort: 'asc',
+                width: 200
+              },
+              {
+                label: 'Asset Names',
+                field: 'Asset Names',
+                sort: 'asc',
+                width: 200
+              },
+            ],
+            rows: this.state.tableData
+        }
         return (
-            <div>
-               <Table bordered responsive className="df">
-					<thead>
-						<tr>
-							<th>Serial</th>
-							<th>Module</th>
-							<th>Size Difference</th>
-							<th>Assets Affecteed</th>
-                            <th>Asset Names</th>
-						</tr>
-					</thead>
-					<tbody>
-					{
-						this.state.tableData.map(function(repository: any, index: number){
-							return <tr key={index}><td>{index+1}</td><td >{repository.module}</td><td>{repository.sizeDifference}</td><td>{repository.assetsImpactedCount}</td><td><table><tbody><tr>
-                                {
-                                    repository.assetsImpactedNames.map(function(lfive: any, ind: number){
-                                        return <td key={ind}>{lfive},</td>
-                                    })
-                                }
-                            </tr></tbody></table></td></tr>;
-						})
-					}	
-					</tbody>
-				 </Table>
+            <div className="Apps">
+              <MDBDataTable
+                striped
+                bordered
+                small
+                data={data}
+                />
             </div>
         );
     }
