@@ -8,11 +8,20 @@
     ]
   },
   "rules": {
+    "variable-name": [
+      true,
+      "check-format",
+      "allow-leading-underscore",
+      "allow-pascal-case",
+      "ban-keywords"
+    ],
     "ordered-imports": [false],
     "object-literal-sort-keys": [false],
-    "no-unused-variable": true,
-    "jsx-boolean-value": false,
-    "member-access": [true, "no-public"],
+    "no-unused-variable": false,
+    "jsx-boolean-value": [
+      "never"
+    ],
+    "member-access": [true],
     "only-arrow-functions": false,
     "no-console": [false, "log", "error"]
   }

@@ -1,14 +1,16 @@
 import * as React from 'react';
 import { Nav } from 'office-ui-fabric-react/lib/Nav';
 import { Router, Route,Switch } from 'react-router-dom';
-import { createBrowserHistory } from 'history'
+import { createBrowserHistory } from 'history';
 import './App.css';
+import { initializeIcons } from '@uifabric/icons';
 
 import Module from './components/Module';
 import Asset from './components/Asset';
 import Pyramid from './components/Pyramid';
 class App extends React.Component<any, any>  {
-  render(): JSX.Element {
+ public render(): JSX.Element {
+  initializeIcons();
     const history = createBrowserHistory();
     return (
      <div className="App">
