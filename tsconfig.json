@@ -35,9 +35,5 @@
     "jest",
     "src/setupTests.ts"
   ],
-  "ordered-imports": false,
-  "typeRoots": [
-    "../node_modules/@types",
-    "../@types"
-]
+  "ordered-imports": false
 }

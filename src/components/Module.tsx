@@ -1,11 +1,12 @@
 import 'react-bootstrap/dist/react-bootstrap';
 import * as React from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { DetailsList, DetailsListLayoutMode, Selection, SelectionMode, IColumn } from 'office-ui-fabric-react/lib/DetailsList';
 import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection';
-let _items: IDocument[] = [];
+import { jsonModuleResponse } from './../moduleData';
 
+let _items: IDocument[] = [];
 export interface IDetailsListDocumentsExampleState {
   columns: IColumn[];
   items: IDocument[];
@@ -75,7 +76,7 @@ class Module extends React.Component<any, IDetailsListDocumentsExampleState>  {
     },
     {
         key: 'column4',
-        name: 'Assets Affecteed',
+        name: 'Assets Affected',
         fieldName: 'assetsImpactedCount',
         minWidth: 100,
         maxWidth: 120,
@@ -118,7 +119,7 @@ class Module extends React.Component<any, IDetailsListDocumentsExampleState>  {
   }  
   public getRepositoryList(that: any)
   {
-    axios.post('https://jsonplaceholder.typicode.com/posts',[
+   /*axios.post('https://jsonplaceholder.typicode.com/posts',[
     {
       "module":"module1.js",
       "sizeDifference":"+100",
@@ -139,26 +140,8 @@ class Module extends React.Component<any, IDetailsListDocumentsExampleState>  {
       ]
     }
     ])
-    .then(function (response) {
-      const tabledata = [{
-        "module":"module1.js",
-        "sizeDifference":"+100",
-        "assetsImpactedCount":3,
-        "assetsImpactedNames":[
-            "asset1",
-            "asset2",
-            "asset3"
-        ]
-      },
-      {
-        "module":"module2.js",
-        "sizeDifference":"+50",
-        "assetsImpactedCount":3,
-        "assetsImpactedNames":[
-            "asset4",
-            "asset5"
-        ]
-      }];
+    .then(function (response) {*/
+      const tabledata = jsonModuleResponse.data.tabledata;
       if (_items.length === 0) {
         _items.push()
         const newFile = tabledata.map((repository: any, index: number) => {
@@ -167,29 +150,30 @@ class Module extends React.Component<any, IDetailsListDocumentsExampleState>  {
         _items = newFile;
         _items = that._sortItems(_items, 'module');
       } 
-			that.setState({items: _items});
-		})
+      that.setState({items: _items});
+	/*	})
     .catch(function (error) {
       console.log(error);
-    });
+    });*/
   }
   public render(): JSX.Element { 
     const { columns, isCompactMode, items, isModalSelection } = this.state;
+   
     return (
       <div className="Apps">    
-        <TextField label="Filter by Module:" onChange={this._onChangeText} />
+        <TextField placeholder="Search..." label="Filter by Module:" onChange={this._onChangeText} />
         <MarqueeSelection selection={this._selection}>
           <DetailsList
-              items={items}
-              compact={isCompactMode}
-              columns={columns}
-              selectionMode={isModalSelection ? SelectionMode.multiple : SelectionMode.none}
-              setKey="set"
-              layoutMode={DetailsListLayoutMode.justified}
-              isHeaderVisible={true}
-              selection={this._selection}
-              selectionPreservedOnEmptyClick={true}
-              enterModalSelectionOnTouch={true}
+            items={items}
+            compact={isCompactMode}
+            columns={columns}
+            selectionMode={isModalSelection ? SelectionMode.multiple : SelectionMode.none}
+            setKey="set"
+            layoutMode={DetailsListLayoutMode.justified}
+            isHeaderVisible={true}
+            selection={this._selection}
+            selectionPreservedOnEmptyClick={true}
+            enterModalSelectionOnTouch={true}
           />
         </MarqueeSelection>
       </div>

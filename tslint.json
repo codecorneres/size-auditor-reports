@@ -10,19 +10,20 @@
   "rules": {
     "variable-name": [
       true,
-      "check-format",
-      "allow-leading-underscore",
-      "allow-pascal-case",
-      "ban-keywords"
+      "ban-keywords", "check-format", "allow-leading-underscore"
     ],
     "ordered-imports": [false],
-    "object-literal-sort-keys": [false],
     "no-unused-variable": false,
     "jsx-boolean-value": [
       "never"
     ],
+    "object-literal-sort-keys": false,
+    "jsx-no-lambda": false,
     "member-access": [true],
     "only-arrow-functions": false,
     "no-console": [false, "log", "error"]
+  },
+  "jsRules": {
+    "object-literal-sort-keys": false
   }
 }

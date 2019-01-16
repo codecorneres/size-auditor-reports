@@ -1,11 +1,13 @@
 import 'react-bootstrap/dist/react-bootstrap';
 import * as React from 'react';
- import axios from 'axios';
+// import axios from 'axios';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { DetailsList, DetailsListLayoutMode, Selection, SelectionMode, IColumn } from 'office-ui-fabric-react/lib/DetailsList';
 import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection';
-let _items: IDocument[] = [];
+import { Link } from 'office-ui-fabric-react/lib/Link';
+import { jsonResponse } from './../AssetsData';
 
+let _items: IDocument[] = [];
 export interface IDetailsListDocumentsExampleState {
   columns: IColumn[];
   items: IDocument[];
@@ -19,9 +21,9 @@ export interface IDocument {
   asset: string;
   sizeDifference: string;
 }
+
 class Asset extends React.Component<any, IDetailsListDocumentsExampleState>  {
   private _selection: Selection;
-  
   constructor(props: any) {
     super(props);
     const _columns: IColumn[] = [{
@@ -30,7 +32,12 @@ class Asset extends React.Component<any, IDetailsListDocumentsExampleState>  {
       fieldName: 'serial',
       minWidth: 200,
       maxWidth: 220,
+      isRowHeader: true,
       isResizable: true,
+      isSorted: true,
+      isSortedDescending: false,
+      sortAscendingAriaLabel: 'Sorted A to Z',
+      sortDescendingAriaLabel: 'Sorted Z to A',
       onColumnClick: this._onColumnClick,
       data: 'number',
       onRender: (item: IDocument) => {
@@ -48,7 +55,7 @@ class Asset extends React.Component<any, IDetailsListDocumentsExampleState>  {
       onColumnClick: this._onColumnClick,
       data: 'string',
       onRender: (item: IDocument) => {
-        return <span>{item.asset}</span>;
+        return  <Link href={`/Assets/${item.asset}`}>{item.asset}</Link>;
       },
       isPadded: true
     },
@@ -58,12 +65,7 @@ class Asset extends React.Component<any, IDetailsListDocumentsExampleState>  {
       fieldName: 'sizeDifference',
       minWidth: 200,
       maxWidth: 220,
-      isRowHeader: true,
       isResizable: true,
-      isSorted: true,
-      isSortedDescending: false,
-      sortAscendingAriaLabel: 'Sorted A to Z',
-      sortDescendingAriaLabel: 'Sorted Z to A',
       isCollapsible: true,
       data: 'string',
       onColumnClick: this._onColumnClick,
@@ -86,45 +88,36 @@ class Asset extends React.Component<any, IDetailsListDocumentsExampleState>  {
   }
   public getRepositoryList(that: any)
 	{
-		axios.post('https://jsonplaceholder.typicode.com/posts',[
-      {
-        asset: "asset1",
-        sizeDifference: "+100"
-      },
-      {
-        asset: "asset2",
-        sizeDifference: "+50"
-      }
-    ])
-		.then(function (response) {
-      const tabledata = [{
-        asset: "asset1",
-        sizeDifference: "+100"
-      },
-      {
-        asset: "asset2",
-        sizeDifference: "+50"
-      }];
+		/*axios.post('https://jsonplaceholder.typicode.com/posts',[{
+      asset: "asset1",
+      sizeDifference: "+100"
+    },
+    {
+      asset: "asset2",
+      sizeDifference: "+50"
+    }])
+		.then(function (response) {*/
+      const tabledata = jsonResponse.data.tabledata;
       if (_items.length === 0) {
         _items.push()
         const newFile = tabledata.map((repository: any, index: number) => {
           return { serial: index+1,...repository};
         });
         _items = newFile;
-        _items = that._sortItems(_items, 'asset');
+        _items = that._sortItems(_items, 'Serial');
       } 
-			that.setState({items: _items});
-		})
+      
+     that.setState({items: _items});
+	/*	})
 		.catch(function (error) {
 			console.log(error);
-		});
+		});*/
 	}
   public render(): JSX.Element {
-    const { columns, isCompactMode, items, isModalSelection } = this.state;
-
+    const { columns, isCompactMode, items, isModalSelection} = this.state;
     return (
-      <div className="Apps">    
-        <TextField label="Filter by Asset:" onChange={this._onChangeText} className="docs-TextFieldExample"/>
+      <div className="Apps">  
+        <TextField placeholder="Search..." label="Filter by Asset:" onChange={this._onChangeText} className="docs-TextFieldExample"/>
         <MarqueeSelection selection={this._selection}>
           <DetailsList
               items={items}
