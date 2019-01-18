@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Nav } from 'office-ui-fabric-react/lib/Nav';
+import { Link } from 'office-ui-fabric-react/lib/Link';
 import { Router, Route,Switch } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import './App.css';
@@ -15,10 +16,10 @@ class App extends React.Component<any, any>  {
     const history = createBrowserHistory();
     return (
       <div className="App">
-        <div className="ms-Grid" dir="ltr">
-          <div className="ms-Grid-row">
-            <div className="ms-Grid-col ms-sm6 ms-md4 ms-lg2" />
-            <div className="ms-Grid-col ms-sm6 ms-md4 ms-lg8">
+      <div className="ms-Grid" dir="ltr">
+          <div className="ms-Grid-row navrow">
+            <div className="ms-Grid-col ms-sm12 ms-md4 ms-lg3 headr"><h3><Link href="/">Size Auditor Report</Link></h3></div>
+            <div className="ms-Grid-col ms-sm12 ms-md4 ms-lg9">
               <Nav
                 groups={[
                   {
@@ -30,6 +31,11 @@ class App extends React.Component<any, any>  {
                   }
                 ]}
               />
+            </div>
+          </div>
+          <div className="ms-Grid-row bdy">
+            <div className="ms-Grid-col ms-sm12 ms-md4 ms-lg2" />
+            <div className="ms-Grid-col ms-sm12 ms-md4 ms-lg8">
               <Router history={history}>
                 <Switch>
                 <Route exact path='/' component={Landing} />
@@ -40,7 +46,7 @@ class App extends React.Component<any, any>  {
                 </Switch>
               </Router>
             </div> 
-            <div className="ms-Grid-col ms-sm6 ms-md4 ms-lg2" />
+            <div className="ms-Grid-col ms-sm12 ms-md4 ms-lg2" />
           </div>
         </div>
       </div>
