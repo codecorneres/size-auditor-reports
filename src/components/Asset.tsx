@@ -6,7 +6,7 @@ import { DetailsList, DetailsListLayoutMode, Selection, SelectionMode, IColumn }
 import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection';
 import { Link } from 'office-ui-fabric-react/lib/Link';
 import { jsonResponse } from './../AssetsData';
-
+import Layout from './../Layout';
 let _items: IDocument[] = [];
 export interface IDetailsListDocumentsExampleState {
   columns: IColumn[];
@@ -116,24 +116,32 @@ class Asset extends React.Component<any, IDetailsListDocumentsExampleState>  {
   public render(): JSX.Element {
     const { columns, isCompactMode, items, isModalSelection} = this.state;
     return (
-      <div className="Apps">  
-        <TextField placeholder="Search..." label="Filter by Asset:" onChange={this._onChangeText} className="docs-TextFieldExample"/>
-        <MarqueeSelection selection={this._selection}>
-          <DetailsList
-              items={items}
-              compact={isCompactMode}
-              columns={columns}
-              selectionMode={isModalSelection ? SelectionMode.multiple : SelectionMode.none}
-              setKey="set"
-              layoutMode={DetailsListLayoutMode.justified}
-              isHeaderVisible={true}
-              selection={this._selection}
-              selectionPreservedOnEmptyClick={true}
-              onItemInvoked={this._onItemInvoked}
-              enterModalSelectionOnTouch={true}
-              data-is-scrollable={true}
-          />
-        </MarqueeSelection>
+      <div>
+        <Layout />
+        <div className="ms-Grid-row bdy">
+          <div className="ms-Grid-col ms-sm12 ms-md4 ms-lg2" />
+          <div className="ms-Grid-col ms-sm12 ms-md4 ms-lg8">
+            <div className="Apps">
+              <TextField placeholder="Search..." label="Filter by Asset:" onChange={this._onChangeText} className="docs-TextFieldExample"/>
+              <MarqueeSelection selection={this._selection}>
+                <DetailsList
+                    items={items}
+                    compact={isCompactMode}
+                    columns={columns}
+                    selectionMode={isModalSelection ? SelectionMode.multiple : SelectionMode.none}
+                    setKey="set"
+                    layoutMode={DetailsListLayoutMode.justified}
+                    isHeaderVisible={true}
+                    selection={this._selection}
+                    selectionPreservedOnEmptyClick={true}
+                    onItemInvoked={this._onItemInvoked}
+                    enterModalSelectionOnTouch={true}
+                    data-is-scrollable={true}
+                />
+              </MarqueeSelection>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

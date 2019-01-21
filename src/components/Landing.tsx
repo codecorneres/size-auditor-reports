@@ -1,14 +1,17 @@
 import * as React from 'react';
 import { DetailsList, DetailsListLayoutMode, Selection, SelectionMode, IColumn } from 'office-ui-fabric-react/lib/DetailsList';
 import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection';
-import { jsonResponse } from './../AssetsData';
-import { jsonModuleResponse } from './../moduleData';
+import { jsonResponse } from './../upload/AssetsData';
+import { jsonModuleResponse } from './../upload/moduleData';
 import { Link } from 'office-ui-fabric-react/lib/Link';
-
+import axios from 'axios';
+import Layout from './../Layout';
 let _items: IDocument[] = [];
 let currentFive: IDocument[] = [];
 let _items2: IDocument[] = [];
 let currentFive2: IDocument[] = [];
+let modules: any =  null;
+let asset: any = null;
 export interface IDetailsListDocumentsExampleState {
     columns: IColumn[];
     items: IDocument[];
@@ -47,7 +50,7 @@ class Landing extends React.Component<any, IDetailsListDocumentsExampleState>  {
         isSortedDescending: false,
         sortAscendingAriaLabel: 'Sorted A to Z',
         sortDescendingAriaLabel: 'Sorted Z to A',
-        onColumnClick: this._onColumnClick,
+       // onColumnClick: this._onColumnClick,
         data: 'number',
         onRender: (item: IDocument) => {
           return <span>{item.serial}</span>;
@@ -61,7 +64,7 @@ class Landing extends React.Component<any, IDetailsListDocumentsExampleState>  {
         minWidth: 200,
         maxWidth: 220,
         isResizable: true,
-        onColumnClick: this._onColumnClick,
+        // onColumnClick: this._onColumnClick,
         data: 'string',
         onRender: (item: IDocument) => {
           return  <Link href={`/Assets/${item.asset}`}>{item.asset}</Link>;
@@ -77,7 +80,7 @@ class Landing extends React.Component<any, IDetailsListDocumentsExampleState>  {
         isResizable: true,
         isCollapsible: true,
         data: 'string',
-        onColumnClick: this._onColumnClick,
+        // onColumnClick: this._onColumnClick,
         onRender: (item: IDocument) => {
           return <span>{item.sizeDifference}</span>;
         },
@@ -91,7 +94,7 @@ class Landing extends React.Component<any, IDetailsListDocumentsExampleState>  {
           minWidth: 100,
           maxWidth: 120,
           isResizable: true,
-          onColumnClick: this._onColumnClick,
+         // onColumnClick: this._onColumnClick,
           data: 'number',
           onRender: (item: IDocument) => {
             return <span>{item.serial}</span>;
@@ -105,7 +108,7 @@ class Landing extends React.Component<any, IDetailsListDocumentsExampleState>  {
           minWidth: 100,
           maxWidth: 120,
           isResizable: true,
-          onColumnClick: this._onColumnClick,
+         // onColumnClick: this._onColumnClick,
           data: 'string',
           onRender: (item: IDocument) => {
             return <span>{item.module}</span>;
@@ -118,14 +121,9 @@ class Landing extends React.Component<any, IDetailsListDocumentsExampleState>  {
           fieldName: 'sizeDifference',
           minWidth: 100,
           maxWidth: 120,
-          isRowHeader: true,
-          isSorted: true,
-          isSortedDescending: false,
-          sortAscendingAriaLabel: 'Sorted A to Z',
-          sortDescendingAriaLabel: 'Sorted Z to A',
           isCollapsible: true,
           data: 'string',
-          onColumnClick: this._onColumnClick,
+         // onColumnClick: this._onColumnClick,
           onRender: (item: IDocument) => {
             return <span>{item.sizeDifference}</span>;
           },
@@ -140,7 +138,7 @@ class Landing extends React.Component<any, IDetailsListDocumentsExampleState>  {
             isResizable: true,
             isCollapsible: true,
             data: 'number',
-            onColumnClick: this._onColumnClick,
+            // onColumnClick: this._onColumnClick,
             onRender: (item: IDocument) => {
               return <span>{item.assetsImpactedCount}</span>;
             },
@@ -155,7 +153,7 @@ class Landing extends React.Component<any, IDetailsListDocumentsExampleState>  {
             isResizable: true,
             isCollapsible: true,
             data: 'string[]',
-            onColumnClick: this._onColumnClick,
+            // onColumnClick: this._onColumnClick,
             onRender: (item: IDocument) => {
               return <span>{item.assetsImpactedNames+','}</span>;
             },
@@ -178,82 +176,142 @@ class Landing extends React.Component<any, IDetailsListDocumentsExampleState>  {
     }
     public componentDidMount()
     {
-      this.getRepositoryList(this);
+      modules = sessionStorage.getItem('module');
+      asset = sessionStorage.getItem('asset');
+      if(modules ==null && asset==null){
+        this.getRepositoryList(this);
+        this.getRepositoryList2(this);
+      }
+      else if (asset==null && modules !=null){
+        this.getRepositoryList3(this);
+        this.getRepositoryList2(this);
+      }
+      else{
+        this.getRepositoryList3(this);
+        this.getRepositoryList4(this);
+      }
+      
     }
     public getRepositoryList(that: any)
     {
-        const tabledata = jsonResponse.data.tabledata;
-        if (_items.length === 0) {
-          _items.push()
-          const newFile = tabledata.map((repository: any, index: number) => {
-            return { serial: index+1,...repository};
+      const tabledata = jsonResponse.data.tabledata;
+      if (_items.length === 0) {
+        _items.push()
+        const newFile = tabledata.map((repository: any, index: number) => {
+          return { serial: index+1,...repository};
+        });
+        _items = newFile;
+        // _items = that._sortItems(_items, 'Serial');
+        const indexOfLastTodo = that.state.currentPage * that.state.todosPerPage;
+        const indexOfFirstTodo = indexOfLastTodo - that.state.todosPerPage;
+        currentFive = _items.slice(indexOfFirstTodo, indexOfLastTodo);
+      }
+      that.setState({items: currentFive});  
+    }
+    public  getRepositoryList2(that: any){
+      const tabledata2 = jsonModuleResponse.data.tabledata;
+      if (_items2.length === 0) {
+          _items2.push()
+          const newFile = tabledata2.map((repository: any, index: number) => {
+          return { serial: index+1,...repository};
           });
-          _items = newFile;
-          _items = that._sortItems(_items, 'Serial');
+          _items2 = newFile;
+          // _items2 = that._sortItems(_items2, 'module');
           const indexOfLastTodo = that.state.currentPage * that.state.todosPerPage;
           const indexOfFirstTodo = indexOfLastTodo - that.state.todosPerPage;
-          currentFive = _items.slice(indexOfFirstTodo, indexOfLastTodo);
-        }
-        that.setState({items: currentFive});
-        const tabledata2 = jsonModuleResponse.data.tabledata;
-
-        if (_items2.length === 0) {
-            _items2.push()
-            const newFile = tabledata2.map((repository: any, index: number) => {
-            return { serial: index+1,...repository};
-            });
-            _items2 = newFile;
-            _items2 = that._sortItems(_items2, 'module');
-            const indexOfLastTodo = that.state.currentPage * that.state.todosPerPage;
-            const indexOfFirstTodo = indexOfLastTodo - that.state.todosPerPage;
-            currentFive2 = _items2.slice(indexOfFirstTodo, indexOfLastTodo);
-        } 
-        that.setState({items2: currentFive2});   
+          currentFive2 = _items2.slice(indexOfFirstTodo, indexOfLastTodo);
+      } 
+      that.setState({items2: currentFive2}); 
+    }
+    public getRepositoryList3(that: any)
+    {
+      axios.get(modules).then(function (response: any) {
+        console.log(response);
+        const tabledata2 = response.data;
+      if (_items2.length === 0) {
+          _items2.push()
+          const newFile = tabledata2.map((repository: any, index: number) => {
+          return { serial: index+1,...repository};
+          });
+          _items2 = newFile;
+          // _items2 = that._sortItems(_items2, 'module');
+          const indexOfLastTodo = that.state.currentPage * that.state.todosPerPage;
+          const indexOfFirstTodo = indexOfLastTodo - that.state.todosPerPage;
+          currentFive2 = _items2.slice(indexOfFirstTodo, indexOfLastTodo);
+      } 
+     });
+     that.setState({items2: currentFive2}); 
+    }
+    public getRepositoryList4(that: any)
+    {
+      axios.get(asset).then(function (response: any) {
+        const tabledata2 = response;
+      if (_items2.length === 0) {
+          _items2.push()
+          const newFile = tabledata2.map((repository: any, index: number) => {
+          return { serial: index+1,...repository};
+          });
+          _items2 = newFile;
+         //  _items2 = that._sortItems(_items2, 'module');
+          const indexOfLastTodo = that.state.currentPage * that.state.todosPerPage;
+          const indexOfFirstTodo = indexOfLastTodo - that.state.todosPerPage;
+          currentFive2 = _items2.slice(indexOfFirstTodo, indexOfLastTodo);
+      } 
+     })
+     that.setState({items2: currentFive2}); 
     }
     public render(): JSX.Element {
-        const { columns,columns2, isCompactMode, items, items2, isModalSelection} = this.state;
-        return (
-        <div className="Apps"> 
-            <div className="section1">  
-            <MarqueeSelection selection={this._selection}>
-            <DetailsList
-                items={items2}
-                compact={isCompactMode}
-                columns={columns2}
-                selectionMode={isModalSelection ? SelectionMode.multiple : SelectionMode.none}
-                setKey="set"
-                layoutMode={DetailsListLayoutMode.justified}
-                isHeaderVisible={true}
-                selection={this._selection}
-                selectionPreservedOnEmptyClick={true}
-                enterModalSelectionOnTouch={true}
-            />
-            </MarqueeSelection>
-            <Link href="/Module">Show More</Link>
-            </div>
-            <div className="section2"> 
+      const { columns,columns2, isCompactMode, items, items2, isModalSelection} = this.state;
+      return (
+        <div>
+          <Layout />
+          <div className="ms-Grid-row bdy">
+            <div className="ms-Grid-col ms-sm12 ms-md4 ms-lg2" />
+            <div className="ms-Grid-col ms-sm12 ms-md4 ms-lg8">
+            <div className="Apps">
+                <div className="section1">  
                 <MarqueeSelection selection={this._selection}>
                 <DetailsList
-                    items={items}
+                    items={items2}
                     compact={isCompactMode}
-                    columns={columns}
+                    columns={columns2}
                     selectionMode={isModalSelection ? SelectionMode.multiple : SelectionMode.none}
                     setKey="set"
                     layoutMode={DetailsListLayoutMode.justified}
                     isHeaderVisible={true}
                     selection={this._selection}
                     selectionPreservedOnEmptyClick={true}
-                    onItemInvoked={this._onItemInvoked}
                     enterModalSelectionOnTouch={true}
-                    data-is-scrollable={true}
                 />
                 </MarqueeSelection>
-                <Link href="/Assets">Show More</Link>
+                <Link href="/Module">Show More</Link>
+                </div>
+                <div className="section2"> 
+                    <MarqueeSelection selection={this._selection}>
+                    <DetailsList
+                        items={items}
+                        compact={isCompactMode}
+                        columns={columns}
+                        selectionMode={isModalSelection ? SelectionMode.multiple : SelectionMode.none}
+                        setKey="set"
+                        layoutMode={DetailsListLayoutMode.justified}
+                        isHeaderVisible={true}
+                        selection={this._selection}
+                        selectionPreservedOnEmptyClick={true}
+                        onItemInvoked={this._onItemInvoked}
+                        enterModalSelectionOnTouch={true}
+                        data-is-scrollable={true}
+                    />
+                    </MarqueeSelection>
+                    <Link href="/Assets">Show More</Link>
+                </div>
+              </div>
             </div>
-        </div> 
-        );
+          </div>
+        </div>
+      );
     }
-    
+  
     public componentDidUpdate(previousProps: any, previousState: IDetailsListDocumentsExampleState) {
         if (previousState.isModalSelection !== this.state.isModalSelection) {
             if (!this.state.isModalSelection) {
@@ -266,51 +324,6 @@ class Landing extends React.Component<any, IDetailsListDocumentsExampleState>  {
     alert(`Item invoked: ${item.asset}`);
     }
 
-    private _onColumnClick = (ev: React.MouseEvent<HTMLElement>, column: IColumn): void => {
-    const { columns, items } = this.state;
-    let newItems: IDocument[] = items.slice();
-    const newColumns: IColumn[] = columns.slice();
-    const currColumn: IColumn = newColumns.filter((currCol: IColumn, idx: number) => {
-        return column.key === currCol.key;
-    })[0];
-    newColumns.forEach((newCol: IColumn) => {
-        if (newCol === currColumn) {
-        currColumn.isSortedDescending = !currColumn.isSortedDescending;
-        currColumn.isSorted = true;
-        } else {
-        newCol.isSorted = false;
-        newCol.isSortedDescending = true;
-        }
-    });
-    newItems = this._sortItems(newItems, currColumn.fieldName || '', currColumn.isSortedDescending);
-    this.setState({
-        columns: newColumns,
-        items: newItems
-    });
-    };
-
-    private _sortItems = (items: IDocument[], sortBy: string, descending = false): IDocument[] => {
-    if (descending) {
-        return items.sort((a: IDocument, b: IDocument) => {
-        if (a[sortBy] < b[sortBy]) {
-            return 1;
-        }
-        if (a[sortBy] > b[sortBy]) {
-            return -1;
-        }
-        return 0;
-        });
-    } else {
-        return items.sort((a: IDocument, b: IDocument) => {
-        if (a[sortBy] < b[sortBy]) {
-            return -1;
-        }
-        if (a[sortBy] > b[sortBy]) {
-            return 1;
-        }
-        return 0;
-        });
-    }
-    };
+   
 }        
 export default Landing;

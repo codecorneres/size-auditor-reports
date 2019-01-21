@@ -35,5 +35,6 @@
     "jest",
     "src/setupTests.ts"
   ],
-  "ordered-imports": false
+  "ordered-imports": false,
+  "strict": false
 }

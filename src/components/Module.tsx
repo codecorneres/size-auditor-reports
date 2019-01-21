@@ -5,7 +5,7 @@ import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { DetailsList, DetailsListLayoutMode, Selection, SelectionMode, IColumn } from 'office-ui-fabric-react/lib/DetailsList';
 import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection';
 import { jsonModuleResponse } from './../moduleData';
-
+import Layout from './../Layout';
 let _items: IDocument[] = [];
 export interface IDetailsListDocumentsExampleState {
   columns: IColumn[];
@@ -160,6 +160,11 @@ class Module extends React.Component<any, IDetailsListDocumentsExampleState>  {
     const { columns, isCompactMode, items, isModalSelection } = this.state;
    
     return (
+      <div>
+        <Layout />
+        <div className="ms-Grid-row bdy">
+          <div className="ms-Grid-col ms-sm12 ms-md4 ms-lg2" />
+          <div className="ms-Grid-col ms-sm12 ms-md4 ms-lg8">
       <div className="Apps">    
         <TextField placeholder="Search..." label="Filter by Module:" onChange={this._onChangeText} />
         <MarqueeSelection selection={this._selection}>
@@ -176,6 +181,9 @@ class Module extends React.Component<any, IDetailsListDocumentsExampleState>  {
             enterModalSelectionOnTouch={true}
           />
         </MarqueeSelection>
+      </div>
+      </div>
+      </div>
       </div>
     );
   }

@@ -10,7 +10,7 @@
   "rules": {
     "variable-name": [
       true,
-      "ban-keywords", "check-format", "allow-leading-underscore"
+      "ban-keywords", "check-format", "allow-leading-underscore", "allow-pascal-case",  "allow-trailing-underscore"
     ],
     "ordered-imports": [false],
     "no-unused-variable": false,
@@ -21,9 +21,10 @@
     "jsx-no-lambda": false,
     "member-access": [true],
     "only-arrow-functions": false,
-    "no-console": [false, "log", "error"]
+    "no-console": false
   },
   "jsRules": {
-    "object-literal-sort-keys": false
+    "object-literal-sort-keys": false,
+    "no-console": false
   }
 }

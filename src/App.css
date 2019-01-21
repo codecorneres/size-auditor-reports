@@ -1,3 +1,4 @@
+
 body{
   background: #f5f5f5 !important;
 }
@@ -26,9 +27,9 @@ body{
   to { transform: rotate(360deg); }
 }
 /*----*/
-.ms-Button{
+ul li .ms-Button{
   padding: 20px !important;
-  /*border-left: 1px solid #ccc !important;*/
+  border-left: 1px solid #ccc !important;
   border-radius: 2px !important;
   font-size: 16px;
   font-weight: 600;
@@ -45,7 +46,9 @@ body{
 }
 .ms-Nav-groupContent{
   margin: 0px;
+ /* border-bottom: 2px solid #ccc;*/
 }
+
 .bdy{
   margin-top: 50px;
 }
@@ -86,7 +89,7 @@ body{
   font-size: 14px;
 }
 .ms-TextField-wrapper{
-  width: 35%;
+ margin-right: 10px;
 }
 .ms-TextField-fieldGroup{
   border-radius: 4px;
@@ -98,4 +101,24 @@ body{
 .ms-Nav-navItems li a::after {
   border-left: 0px solid rgb(0, 120, 212) !important;
   border-bottom: 2px solid  rgb(0, 120, 212) !important;
+}
+.ms-Nav-groupContent {
+  margin-bottom: 0px !important;
+}
+.dropzone{
+  padding: 20px;
+    border: 2px dashed #AC9062;
+    margin-right: 20px;
+    color: #333;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.hesadh3{
+  text-align: center;
+}
+.spnd{
+  width: 70%;
+}
+.filename{
+  color: #3178d3;
 }
