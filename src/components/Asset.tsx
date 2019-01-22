@@ -5,7 +5,7 @@ import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { DetailsList, DetailsListLayoutMode, Selection, SelectionMode, IColumn } from 'office-ui-fabric-react/lib/DetailsList';
 import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection';
 import { Link } from 'office-ui-fabric-react/lib/Link';
-import { jsonResponse } from './../AssetsData';
+import { jsonResponse } from './../upload/AssetsData';
 import Layout from './../Layout';
 let _items: IDocument[] = [];
 export interface IDetailsListDocumentsExampleState {

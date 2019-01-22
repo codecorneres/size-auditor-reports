@@ -190,7 +190,6 @@ class Landing extends React.Component<any, IDetailsListDocumentsExampleState>  {
         this.getRepositoryList3(this);
         this.getRepositoryList4(this);
       }
-      
     }
     public getRepositoryList(that: any)
     {

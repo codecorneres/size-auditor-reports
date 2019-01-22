@@ -7,7 +7,7 @@ class Layout extends React.Component<any, any>  {
         <div className="ms-Grid">
           <div className="ms-Grid-row">
             <div className="ms-Grid-row navrow">
-            <div className="ms-Grid-col ms-sm12 ms-md4 ms-lg3 headr"><h3><Link href="/landing">Size Auditor Report</Link></h3></div>
+            <div className="ms-Grid-col ms-sm12 ms-md4 ms-lg3 headr"><h3><Link href="/">Size Auditor Report</Link></h3></div>
               <div className="ms-Grid-col ms-sm12 ms-md8 ms-lg9">
                 <Nav
                   groups={[

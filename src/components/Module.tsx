@@ -4,7 +4,7 @@ import * as React from 'react';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { DetailsList, DetailsListLayoutMode, Selection, SelectionMode, IColumn } from 'office-ui-fabric-react/lib/DetailsList';
 import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection';
-import { jsonModuleResponse } from './../moduleData';
+import { jsonModuleResponse } from './../upload/moduleData';
 import Layout from './../Layout';
 let _items: IDocument[] = [];
 export interface IDetailsListDocumentsExampleState {
@@ -75,36 +75,35 @@ class Module extends React.Component<any, IDetailsListDocumentsExampleState>  {
       isPadded: true
     },
     {
-        key: 'column4',
-        name: 'Assets Affected',
-        fieldName: 'assetsImpactedCount',
-        minWidth: 100,
-        maxWidth: 120,
-        isResizable: true,
-        isCollapsible: true,
-        data: 'number',
-        onColumnClick: this._onColumnClick,
-        onRender: (item: IDocument) => {
-          return <span>{item.assetsImpactedCount}</span>;
-        },
-        isPadded: true
+      key: 'column4',
+      name: 'Assets Affected',
+      fieldName: 'assetsImpactedCount',
+      minWidth: 100,
+      maxWidth: 120,
+      isResizable: true,
+      isCollapsible: true,
+      data: 'number',
+      onColumnClick: this._onColumnClick,
+      onRender: (item: IDocument) => {
+        return <span>{item.assetsImpactedCount}</span>;
       },
-      {
-        key: 'column5',
-        name: 'Asset Names',
-        fieldName: 'assetsImpactedNames',
-        minWidth: 100,
-        maxWidth: 120,
-        isResizable: true,
-        isCollapsible: true,
-        data: 'string[]',
-        onColumnClick: this._onColumnClick,
-        onRender: (item: IDocument) => {
-          return <span>{item.assetsImpactedNames+','}</span>;
-        },
-        isPadded: true
-      }
-    ];
+      isPadded: true
+    },
+    {
+      key: 'column5',
+      name: 'Asset Names',
+      fieldName: 'assetsImpactedNames',
+      minWidth: 100,
+      maxWidth: 120,
+      isResizable: true,
+      isCollapsible: true,
+      data: 'string[]',
+      onColumnClick: this._onColumnClick,
+      onRender: (item: IDocument) => {
+        return <span>{item.assetsImpactedNames+','}</span>;
+      },
+      isPadded: true
+    }];
   
     this.state = {
       items: _items,
@@ -165,25 +164,25 @@ class Module extends React.Component<any, IDetailsListDocumentsExampleState>  {
         <div className="ms-Grid-row bdy">
           <div className="ms-Grid-col ms-sm12 ms-md4 ms-lg2" />
           <div className="ms-Grid-col ms-sm12 ms-md4 ms-lg8">
-      <div className="Apps">    
-        <TextField placeholder="Search..." label="Filter by Module:" onChange={this._onChangeText} />
-        <MarqueeSelection selection={this._selection}>
-          <DetailsList
-            items={items}
-            compact={isCompactMode}
-            columns={columns}
-            selectionMode={isModalSelection ? SelectionMode.multiple : SelectionMode.none}
-            setKey="set"
-            layoutMode={DetailsListLayoutMode.justified}
-            isHeaderVisible={true}
-            selection={this._selection}
-            selectionPreservedOnEmptyClick={true}
-            enterModalSelectionOnTouch={true}
-          />
-        </MarqueeSelection>
-      </div>
-      </div>
-      </div>
+            <div className="Apps">    
+              <TextField placeholder="Search..." label="Filter by Module:" onChange={this._onChangeText} />
+              <MarqueeSelection selection={this._selection}>
+                <DetailsList
+                  items={items}
+                  compact={isCompactMode}
+                  columns={columns}
+                  selectionMode={isModalSelection ? SelectionMode.multiple : SelectionMode.none}
+                  setKey="set"
+                  layoutMode={DetailsListLayoutMode.justified}
+                  isHeaderVisible={true}
+                  selection={this._selection}
+                  selectionPreservedOnEmptyClick={true}
+                  enterModalSelectionOnTouch={true}
+                />
+              </MarqueeSelection>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

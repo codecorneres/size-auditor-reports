@@ -10,8 +10,9 @@ const styles = { height: 400, width: "100%" };
 const stylerow = { display: "inline-flex" };
 import classNames from 'classnames';
 import Dropzone from 'react-dropzone';
+import Layout from './../Layout';
 
-class Home extends React.Component<any, any>  {
+class Carousel extends React.Component<any, any>  {
   constructor(props: any) {
     super(props);
     this.state = {
@@ -36,19 +37,20 @@ class Home extends React.Component<any, any>  {
 
   public render(): JSX.Element {
     return (
+      
       <div className="container-fluid">
+      <Layout />
       {
       this.state.shouldRedirect ?
-        <Redirect to="/landing" push/> :
+        <Redirect to="/" push/> :
         <div className="ms-Grid-row bdy">
-        <h3 className="hesadh3">Size Auditor Report</h3>
         <div className="ms-Grid-col ms-sm12 ms-md4 ms-lg2" />
-        <div className="ms-Grid-col ms-sm12 ms-md4 ms-lg8">
+        <div className="ms-Grid-col ms-sm12 ms-md4 ms-lg8 Apps">
         
         <Row>
           <Col span={12} style={{ marginTop: 20 }}>
             <RBCarousel className="carousel-fade" autoplay={this.state.autoplay}>
-              <div style={{ ...styles, backgroundColor: "#f7eedf" }}>
+              <div style={{ ...styles, backgroundColor: "#fff" }}>
                 <div className="carousel-center" style={{...stylerow}}>
                   <span className="spn">
                   <Dropzone onDrop={this.handleonDrop}>{({getRootProps, getInputProps, isDragActive}) => {
@@ -96,7 +98,7 @@ class Home extends React.Component<any, any>  {
                   />
                 </div>
               </div>
-              <div style={{ ...styles, backgroundColor: "#f7eedf" }}>
+              <div style={{ ...styles, backgroundColor: "#fff" }}>
                 <div className="carousel-center" style={{...stylerow}}>
                 <span className="spnd">
                 
@@ -129,7 +131,7 @@ class Home extends React.Component<any, any>  {
                   />
                 </div>
               </div>
-              <div style={{ ...styles, backgroundColor: "#f7eedf" }}>
+              <div style={{ ...styles, backgroundColor: "#fff" }}>
                 <div className="carousel-center" style={{...stylerow}}>
                 <span><TextField placeholder="Enter build Id" label="" onChange={(e) => this._onChangeText1(e.target)} className="docs-TextFieldExample"/></span>
                 <span><TextField placeholder="Enter build Id" label="" onChange={(e) => this._onChangeText2(e.target)} className="docs-TextFieldExample"/></span>
@@ -179,11 +181,8 @@ class Home extends React.Component<any, any>  {
   private _alertClicked(): void {
     const data = new FormData();
     const data2 = new FormData();
-    console.log(this.state.selectedFile.name);
     if(this.state.selectedFile.name && this.state.selectedFile2 !== '')
     {
-      console.log(this.state.selectedFile);
-      console.log(this.state.selectedFile2);
       data.append('file', this.state.selectedFile, this.state.selectedFile.name);
       data2.append('file', this.state.selectedFile2, this.state.selectedFile2.name);
       console.log(data);
@@ -245,4 +244,4 @@ const Col = (props: any) => (
     {props.children}
   </div>
 );
-export default Home;
+export default Carousel;

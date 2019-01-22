@@ -28,9 +28,6 @@ body{
 }
 /*----*/
 ul li .ms-Button{
-  padding: 20px !important;
-  border-left: 1px solid #ccc !important;
-  border-radius: 2px !important;
   font-size: 16px;
   font-weight: 600;
   height: 64px !important;
@@ -98,6 +95,9 @@ ul li .ms-Button{
 .ms-Label{
   font-family: sans-serif;
 }
+.ms-Nav-navItems li:hover{
+  background: #dad9d9;
+}
 .ms-Nav-navItems li a::after {
   border-left: 0px solid rgb(0, 120, 212) !important;
   border-bottom: 2px solid  rgb(0, 120, 212) !important;
@@ -121,4 +121,21 @@ ul li .ms-Button{
 }
 .filename{
   color: #3178d3;
+}
+/* Carousel css */
+.carousel-control .leftControl > i, .carousel-control .rightControl > i{
+  color: #404040 !important;
+}
+.carousel-control.left:hover, .carousel-control.right:hover{
+  background-image: none !important;
+}
+.carousel-indicators {
+  bottom: 0px !important;
+}
+a:focus {
+  outline: 0px auto -webkit-focus-ring-color !important;
+  outline-offset: -2px;
+}
+.dropzone:focus {
+  outline: -webkit-focus-ring-color auto 0px !important;
 }
