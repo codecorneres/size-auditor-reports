@@ -156,21 +156,18 @@ class Carousel extends React.Component<any, any>  {
     );
   }
   private handleonDrop = (files: any, rejectedfiles: any) =>{
-    console.log(files[0].name);
     this.setState({
       selectedFile: files[0],
       Afilename: files[0].name,
     })
   }
   private handleonDrop2 = (files: any, rejectedfiles: any) =>{
-    console.log(files[0].name);
     this.setState({
       selectedFile2: files[0],
       Mfiles: files[0].name,
     })
   }
   private handleonDrop3 = (files: any, rejectedfiles: any) =>{
-    console.log(files[0].name);
     this.setState({
       selectedFile3: files[0],
       Afiles: files[0].name,
@@ -185,7 +182,6 @@ class Carousel extends React.Component<any, any>  {
     {
       data.append('file', this.state.selectedFile, this.state.selectedFile.name);
       data2.append('file', this.state.selectedFile2, this.state.selectedFile2.name);
-      console.log(data);
       axios.post('http://localhost:8000/Asset',data)
       .then(function (response) {
         // console.log(response);  
@@ -221,20 +217,17 @@ class Carousel extends React.Component<any, any>  {
  
   private _onChangeText(selectorFiles: any): void{
     this.setState({
-      firstinput: selectorFiles.value,
-     
+      firstinput: selectorFiles.value, 
     });
   }
   private _onChangeText1(selectorFiles: any): void{
     this.setState({
       secondinput: selectorFiles.value,
-     
     });
   }
   private _onChangeText2(selectorFiles: any): void{
     this.setState({
       thirdinput: selectorFiles.value,
-     
     });
   }
 }

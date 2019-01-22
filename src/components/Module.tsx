@@ -140,7 +140,7 @@ class Module extends React.Component<any, IDetailsListDocumentsExampleState>  {
     }
     ])
     .then(function (response) {*/
-      const tabledata = jsonModuleResponse.data.tabledata;
+      const tabledata = jsonModuleResponse.tabledata;
       if (_items.length === 0) {
         _items.push()
         const newFile = tabledata.map((repository: any, index: number) => {

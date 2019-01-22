@@ -1,5 +1,4 @@
 const jsonModuleResponse = {
-  "data": {
      "tabledata" : [{
       "module":"module1.js",
       "sizeDifference":"+100",
@@ -72,7 +71,6 @@ const jsonModuleResponse = {
           "asset11"
       ]
     }]
-  }
 };
 
 export {jsonModuleResponse};

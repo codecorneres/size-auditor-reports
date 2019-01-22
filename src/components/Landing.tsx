@@ -35,7 +35,7 @@ export interface IDocument {
   assetsImpactedNames:  string[];
 }
 class Landing extends React.Component<any, IDetailsListDocumentsExampleState>  {
-    private _selection: Selection;
+  private _selection: Selection;
     constructor(props: any) {
       super(props);
       const _columns: IColumn[] = [{
@@ -44,12 +44,7 @@ class Landing extends React.Component<any, IDetailsListDocumentsExampleState>  {
         fieldName: 'serial',
         minWidth: 200,
         maxWidth: 220,
-        isRowHeader: true,
         isResizable: true,
-        isSorted: true,
-        isSortedDescending: false,
-        sortAscendingAriaLabel: 'Sorted A to Z',
-        sortDescendingAriaLabel: 'Sorted Z to A',
        // onColumnClick: this._onColumnClick,
         data: 'number',
         onRender: (item: IDocument) => {
@@ -193,7 +188,7 @@ class Landing extends React.Component<any, IDetailsListDocumentsExampleState>  {
     }
     public getRepositoryList(that: any)
     {
-      const tabledata = jsonResponse.data.tabledata;
+      const tabledata = jsonResponse.tabledata;
       if (_items.length === 0) {
         _items.push()
         const newFile = tabledata.map((repository: any, index: number) => {
@@ -208,7 +203,7 @@ class Landing extends React.Component<any, IDetailsListDocumentsExampleState>  {
       that.setState({items: currentFive});  
     }
     public  getRepositoryList2(that: any){
-      const tabledata2 = jsonModuleResponse.data.tabledata;
+      const tabledata2 = jsonModuleResponse.tabledata;
       if (_items2.length === 0) {
           _items2.push()
           const newFile = tabledata2.map((repository: any, index: number) => {
@@ -297,7 +292,6 @@ class Landing extends React.Component<any, IDetailsListDocumentsExampleState>  {
                         isHeaderVisible={true}
                         selection={this._selection}
                         selectionPreservedOnEmptyClick={true}
-                        onItemInvoked={this._onItemInvoked}
                         enterModalSelectionOnTouch={true}
                         data-is-scrollable={true}
                     />
@@ -311,18 +305,12 @@ class Landing extends React.Component<any, IDetailsListDocumentsExampleState>  {
       );
     }
   
-    public componentDidUpdate(previousProps: any, previousState: IDetailsListDocumentsExampleState) {
-        if (previousState.isModalSelection !== this.state.isModalSelection) {
-            if (!this.state.isModalSelection) {
-            this._selection.setAllSelected(false);
-            }
-        }
-    }
-    
-    private _onItemInvoked(item: any): void {
-    alert(`Item invoked: ${item.asset}`);
-    }
-
-   
+  public componentDidUpdate(previousProps: any, previousState: IDetailsListDocumentsExampleState) {
+      if (previousState.isModalSelection !== this.state.isModalSelection) {
+          if (!this.state.isModalSelection) {
+          this._selection.setAllSelected(false);
+          }
+      }
+  } 
 }        
 export default Landing;

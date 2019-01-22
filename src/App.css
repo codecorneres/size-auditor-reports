@@ -47,7 +47,7 @@ ul li .ms-Button{
 }
 
 .bdy{
-  margin-top: 50px;
+  margin: 50px 0px 0px 0px !important;
 }
 .ms-Nav-navItems li a:focus, a:active, a:hover{
   color: #337ab7 !important;

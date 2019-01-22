@@ -1,5 +1,4 @@
 const jsonResponse = {
-  "data": {
     "tabledata" : [{
       asset: "asset1",
       sizeDifference: "+100"
@@ -44,9 +43,7 @@ const jsonResponse = {
     {
       asset: "asset11",
       sizeDifference: "+750"
-    }
-  ]
-  }
+    }]
 };
 
 export {jsonResponse};

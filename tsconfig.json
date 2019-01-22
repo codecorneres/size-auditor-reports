@@ -20,11 +20,11 @@
     "noUnusedLocals": true,
     "plugins": [
       {
-          "name": "tslint-language-service",
-          "alwaysShowRuleFailuresAsWarnings": true,
-          "ignoreDefinitionFiles": true
+        "name": "tslint-language-service",
+        "alwaysShowRuleFailuresAsWarnings": true,
+        "ignoreDefinitionFiles": true
       }
-  ]
+    ]
   },
   "exclude": [
     "node_modules",
