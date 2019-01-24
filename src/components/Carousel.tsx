@@ -30,11 +30,18 @@ class Carousel extends React.Component<any, any>  {
       Afiles2: '',
 
     };
+    this.handleonDrop3 = this.handleonDrop3.bind(this);
+    this.handleonDrop = this.handleonDrop.bind(this);
+    this.handleonDrop2 = this.handleonDrop2.bind(this);
     this._alertClicked = this._alertClicked.bind(this);
     this._alertClicked2 = this._alertClicked2.bind(this);
     this._alertClicked3 = this._alertClicked3.bind(this);
   }
-
+  public componentDidMount()
+  {
+    localStorage.removeItem('asset');
+    localStorage.removeItem('module');
+  }
   public render(): JSX.Element {
     return (
       
@@ -155,19 +162,19 @@ class Carousel extends React.Component<any, any>  {
       </div>
     );
   }
-  private handleonDrop = (files: any, rejectedfiles: any) =>{
+  private handleonDrop = (files: any) =>{
     this.setState({
       selectedFile: files[0],
       Afilename: files[0].name,
     })
   }
-  private handleonDrop2 = (files: any, rejectedfiles: any) =>{
+  private handleonDrop2 = (files: any) =>{
     this.setState({
       selectedFile2: files[0],
       Mfiles: files[0].name,
     })
   }
-  private handleonDrop3 = (files: any, rejectedfiles: any) =>{
+  private handleonDrop3 = (files: any) =>{
     this.setState({
       selectedFile3: files[0],
       Afiles: files[0].name,
@@ -182,13 +189,13 @@ class Carousel extends React.Component<any, any>  {
     {
       data.append('file', this.state.selectedFile, this.state.selectedFile.name);
       data2.append('file', this.state.selectedFile2, this.state.selectedFile2.name);
-      axios.post('http://localhost:8000/Asset',data)
-      .then(function (response) {
-        // console.log(response);  
+      axios.post('http://localhost:8001/Asset',data)
+      .then(function (response) { 
+        // console.log(response);
       });
-      axios.post('http://localhost:8000/modules',data2)
-      .then(function (response) {
-        // console.log(response);  
+      axios.post('http://localhost:8001/modules',data2)
+      .then(function (response) {  
+        // console.log(response);
       });
       this.setState({ shouldRedirect: true });
     }
@@ -197,21 +204,32 @@ class Carousel extends React.Component<any, any>  {
     const data = new FormData();
     if(this.state.firstinput !==''  && this.state.selectedFile3.name !== undefined)
     {
-      sessionStorage.setItem('module', this.state.firstinput);
+      
       data.append('file', this.state.selectedFile3, this.state.selectedFile3.name);
-      axios.post('http://localhost:8000/Asset',data)
+      data.append('modules', this.state.firstinput);
+       const that = this;
+      axios.post('http://127.0.0.1:8001/Asset',data)
       .then(function (response) {
-      // console.log(response);
+        axios.post('http://127.0.0.1:8001/saveFile',{'modules':that.state.firstinput}).then(function (resp: any) {
+           localStorage.setItem('module', JSON.stringify(resp.data));
+           that.setState({ shouldRedirect: true });
+        });
+       
       });
-      this.setState({ shouldRedirect: true });
     }
   }
   private _alertClicked3(): void {
     if(this.state.secondinput && this.state.thirdinput !== '')
     {
-      sessionStorage.setItem('asset', this.state.secondinput);
-      sessionStorage.setItem('module', this.state.thirdinput);
-      this.setState({ shouldRedirect: true });
+      const that = this;
+      axios.post('http://127.0.0.1:8001/saveAssetFile',{'asset':this.state.secondinput}).then(function (response: any) {
+
+        localStorage.setItem('asset', JSON.stringify(response.data));
+      });
+      axios.post('http://127.0.0.1:8001/saveFile',{'modules':this.state.thirdinput}).then(function (response: any) {
+        localStorage.setItem('module', JSON.stringify(response.data));
+        that.setState({ shouldRedirect: true });
+      });
     }
   }
  

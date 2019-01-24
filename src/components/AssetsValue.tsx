@@ -2,9 +2,10 @@ import * as React from 'react';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { DetailsList, DetailsListLayoutMode, Selection, SelectionMode, IColumn } from 'office-ui-fabric-react/lib/DetailsList';
 import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection';
+import { jsonResponse } from './../upload/AssetsValueData';
 import Layout from './../Layout';
 let _items: IDocument[] = [];
-let currentFive: IDocument[] = [];
+let parameters: any = '';
 export interface IDetailsListDocumentsExampleState {
   columns: IColumn[];
   items: IDocument[];
@@ -19,8 +20,14 @@ export interface IDetailsListDocumentsExampleState {
 export interface IDocument {
   [key: string]: any;
   serial: number;
-  module: string;
-  sizeDifference: string;
+  assets: string;
+  module: [
+    {
+      name: string,
+      sizeDifference: string
+    }
+  ];
+  
 }
 class AssetsValue extends React.Component<any, IDetailsListDocumentsExampleState>  {
   private _selection: Selection;
@@ -48,14 +55,14 @@ class AssetsValue extends React.Component<any, IDetailsListDocumentsExampleState
     {
       key: 'column2',
       name: 'Module',
-      fieldName: 'module',
+      fieldName: 'name',
       minWidth: 200,
       maxWidth: 220,
       isResizable: true,
       onColumnClick: this._onColumnClick,
       data: 'string',
       onRender: (item: IDocument) => {
-        return  <span>{item.module}</span>;
+        return  <span>{item.name}</span>;
       },
       isPadded: true
     },
@@ -88,21 +95,32 @@ class AssetsValue extends React.Component<any, IDetailsListDocumentsExampleState
   public componentDidMount()
   {
       const { match: { params } } = this.props;
-      console.log(params.name);
+      parameters = params.name;
       this.getRepositoryList(this);
   }
   public getRepositoryList(that: any)
   {
-    const tabledata= [{
+   /* const tabledata= [{
       serial : 1,
       module: "module3.js",
       sizeDifference: "+50"
-    }]
+    }]*/
     _items = [];
-    currentFive = tabledata;
-    _items = currentFive;
-    _items = that._sortItems(_items, 'Serial');
-    that.setState({items: currentFive});
+    const tabledata = jsonResponse.tabledata;
+    if (_items.length === 0) {
+      for(const row of tabledata){
+        if(row.asset === parameters){
+            const moduledata = row.modules;
+            _items.push()
+            const newFile = moduledata.map((repository: any, index: number) => {
+              return { serial: index+1,...repository};
+            });
+            _items = newFile;
+        }
+      }
+      _items = that._sortItems(_items, 'Serial');
+    }
+    that.setState({items: _items});
   }
 
   public render(): JSX.Element {
@@ -146,7 +164,7 @@ class AssetsValue extends React.Component<any, IDetailsListDocumentsExampleState
   }
   
   private _onChangeText = (ev: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, text: string): void => {
-    this.setState({ items: text ? _items.filter(i => i.module.toLowerCase().indexOf(text) > -1) : _items });
+    this.setState({ items: text ? _items.filter(i => i.assets.toLowerCase().indexOf(text) > -1) : _items });
   };
 
   private _onColumnClick = (ev: React.MouseEvent<HTMLElement>, column: IColumn): void => {

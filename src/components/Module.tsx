@@ -7,6 +7,7 @@ import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection';
 import { jsonModuleResponse } from './../upload/moduleData';
 import Layout from './../Layout';
 let _items: IDocument[] = [];
+let modules: any =  null;
 export interface IDetailsListDocumentsExampleState {
   columns: IColumn[];
   items: IDocument[];
@@ -114,33 +115,19 @@ class Module extends React.Component<any, IDetailsListDocumentsExampleState>  {
   }
   public componentDidMount()
 	{
+    modules = localStorage.getItem('module');
+    modules = JSON.parse(modules);
     this.getRepositoryList(this);
   }  
   public getRepositoryList(that: any)
   {
-   /*axios.post('https://jsonplaceholder.typicode.com/posts',[
-    {
-      "module":"module1.js",
-      "sizeDifference":"+100",
-      "assetsImpactedCount":3,
-      "assetsImpactedNames":[
-          "asset1",
-          "asset2",
-          "asset3"
-      ]
-    },
-    {
-      "module":"module2.js",
-      "sizeDifference":"+50",
-      "assetsImpactedCount":3,
-      "assetsImpactedNames":[
-          "asset4",
-          "asset5"
-      ]
-    }
-    ])
-    .then(function (response) {*/
-      const tabledata = jsonModuleResponse.tabledata;
+    let tabledata: any =  [];
+      if(modules==null){
+         tabledata = jsonModuleResponse.tabledata;
+      }
+      else{
+        tabledata = modules;
+      }
       if (_items.length === 0) {
         _items.push()
         const newFile = tabledata.map((repository: any, index: number) => {
@@ -150,10 +137,6 @@ class Module extends React.Component<any, IDetailsListDocumentsExampleState>  {
         _items = that._sortItems(_items, 'module');
       } 
       that.setState({items: _items});
-	/*	})
-    .catch(function (error) {
-      console.log(error);
-    });*/
   }
   public render(): JSX.Element { 
     const { columns, isCompactMode, items, isModalSelection } = this.state;

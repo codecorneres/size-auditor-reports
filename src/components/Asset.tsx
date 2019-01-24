@@ -8,6 +8,7 @@ import { Link } from 'office-ui-fabric-react/lib/Link';
 import { jsonResponse } from './../upload/AssetsData';
 import Layout from './../Layout';
 let _items: IDocument[] = [];
+let asset: any = null;
 export interface IDetailsListDocumentsExampleState {
   columns: IColumn[];
   items: IDocument[];
@@ -84,33 +85,29 @@ class Asset extends React.Component<any, IDetailsListDocumentsExampleState>  {
   }
   public componentDidMount()
 	{
+    asset = localStorage.getItem('asset');
+    asset = JSON.parse(asset);
     this.getRepositoryList(this);
   }
   public getRepositoryList(that: any)
 	{
-		/*axios.post('https://jsonplaceholder.typicode.com/posts',[{
-      asset: "asset1",
-      sizeDifference: "+100"
-    },
-    {
-      asset: "asset2",
-      sizeDifference: "+50"
-    }])
-		.then(function (response) {*/
-      const tabledata = jsonResponse.tabledata;
+      let tabledata: any =  [];
+      if(asset==null){
+         tabledata = jsonResponse.tabledata;
+      }
+      else{
+        tabledata = asset;
+      }
       if (_items.length === 0) {
         _items.push()
+        
         const newFile = tabledata.map((repository: any, index: number) => {
           return { serial: index+1,...repository};
         });
         _items = newFile;
         _items = that._sortItems(_items, 'Serial');
       } 
-     that.setState({items: _items});
-	/*	})
-		.catch(function (error) {
-			console.log(error);
-		});*/
+      that.setState({items: _items});
 	}
   public render(): JSX.Element {
     const { columns, isCompactMode, items, isModalSelection} = this.state;
