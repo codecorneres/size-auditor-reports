@@ -15,7 +15,8 @@ class Layout extends React.Component<any, any>  {
                       links: [
                         { name: 'Module View', key: 'Module View', url: '/Module' },
                         { name: 'Asset View', key: 'Asset View', url: '/Assets' },
-                        { name: 'Pyramid view', key: 'Pyramid view', url: '/Pyramid' }
+                        { name: 'Pyramid view', key: 'Pyramid view', url: '/Pyramid' },
+                        { name: 'Feedback', key: 'Feedback', url: '/Feedback' }
                       ]
                     }
                   ]}

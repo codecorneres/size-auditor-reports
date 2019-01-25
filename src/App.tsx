@@ -9,6 +9,7 @@ import Module from './components/Module';
 import Asset from './components/Asset';
 import Pyramid from './components/Pyramid';
 import AssetsValue from './components/AssetsValue';
+import Feedback from './components/Feedback';
 class App extends React.Component<any, any>  {
  public render(): JSX.Element {
   initializeIcons();
@@ -23,6 +24,7 @@ class App extends React.Component<any, any>  {
             <Route exact path='/Assets' component={Asset} />
             <Route exact path='/Pyramid' component={Pyramid} />
             <Route exact path='/Assets/:name' component={AssetsValue} />
+            <Route exact path='/Feedback' component={Feedback} />
           </Switch>
         </Router>
       </div>

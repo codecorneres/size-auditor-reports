@@ -139,3 +139,14 @@ a:focus {
 .dropzone:focus {
   outline: -webkit-focus-ring-color auto 0px !important;
 }
+/*--feedback div---*/
+.feedbackdiv{
+  margin: 20px;
+}
+.feedbackdiv .ms-Button{
+  margin: 20px 0px;
+}
+.feedbacktablediv{
+  border-top: 2px solid #ddd;
+  padding: 14px 0px;
+}

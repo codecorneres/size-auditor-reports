@@ -96,3 +96,21 @@ app.post('/saveAssetFile', async function(req, res){
     writer.on('error', reject)
   });
 });
+app.get('/feedback', async function(req, res){
+  const url =  'https://twentyfourhourfitness.herokuapp.com/getfeedback';
+  const response = await Axios({
+    url,
+    method: 'GET',
+  });
+  console.log(response.data);
+  res.json(response.data)
+})
+app.post('/feedbackData', async function(req, res){
+  const url =  'https://twentyfourhourfitness.herokuapp.com/postfeedback ';
+  const response = await Axios({
+    url,
+    method: 'Post',
+    data: req.body,
+  });
+  res.json(response.data)
+})
