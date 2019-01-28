@@ -21,7 +21,8 @@
     "jsx-no-lambda": false,
     "member-access": [true],
     "only-arrow-functions": false,
-    "no-console": false
+    "no-console": false,
+    "object-literal-shorthand": [false, "never"]
   },
   "jsRules": {
     "object-literal-sort-keys": false,

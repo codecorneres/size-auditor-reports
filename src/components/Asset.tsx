@@ -56,7 +56,7 @@ class Asset extends React.Component<any, IDetailsListDocumentsExampleState>  {
       onColumnClick: this._onColumnClick,
       data: 'string',
       onRender: (item: IDocument) => {
-        return  <Link href={`/Assets/${item.asset}`}>{item.asset}</Link>;
+        return  <Link href={`/Assets/${item.asset}`} title={item.asset}>{item.asset}</Link>;
       },
       isPadded: true
     },
@@ -71,7 +71,7 @@ class Asset extends React.Component<any, IDetailsListDocumentsExampleState>  {
       data: 'string',
       onColumnClick: this._onColumnClick,
       onRender: (item: IDocument) => {
-        return <span>{item.sizeDifference}</span>;
+        return <span title={item.sizeDifference}>{item.sizeDifference}</span>;
       },
       isPadded: true
     }];

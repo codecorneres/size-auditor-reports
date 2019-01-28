@@ -31,8 +31,8 @@ export interface IDocument {
   asset: string;
   sizeDifference: string;
   module: string;
-  assetsImpactedCount: number;
-  assetsImpactedNames:  string[];
+  assetsImpactedCount: string;
+  assetsImpactedNames:  string;
 }
 class Landing extends React.Component<any, IDetailsListDocumentsExampleState>  {
   private _selection: Selection;
@@ -62,7 +62,7 @@ class Landing extends React.Component<any, IDetailsListDocumentsExampleState>  {
         // onColumnClick: this._onColumnClick,
         data: 'string',
         onRender: (item: IDocument) => {
-          return  <Link href={`/Assets/${item.asset}`}>{item.asset}</Link>;
+          return  <Link href={`/Assets/${item.asset}`} title={item.asset}>{item.asset}</Link>;
         },
         isPadded: true
       },
@@ -77,7 +77,7 @@ class Landing extends React.Component<any, IDetailsListDocumentsExampleState>  {
         data: 'string',
         // onColumnClick: this._onColumnClick,
         onRender: (item: IDocument) => {
-          return <span>{item.sizeDifference}</span>;
+          return <span title={item.sizeDifference}>{item.sizeDifference}</span>;
         },
         isPadded: true
       }];
@@ -106,7 +106,7 @@ class Landing extends React.Component<any, IDetailsListDocumentsExampleState>  {
          // onColumnClick: this._onColumnClick,
           data: 'string',
           onRender: (item: IDocument) => {
-            return <span>{item.module}</span>;
+            return <span title={item.module}>{item.module}</span>;
           },
           isPadded: true
         },
@@ -120,7 +120,7 @@ class Landing extends React.Component<any, IDetailsListDocumentsExampleState>  {
           data: 'string',
          // onColumnClick: this._onColumnClick,
           onRender: (item: IDocument) => {
-            return <span>{item.sizeDifference}</span>;
+            return <span title={item.sizeDifference}>{item.sizeDifference}</span>;
           },
           isPadded: true
         },
@@ -135,7 +135,7 @@ class Landing extends React.Component<any, IDetailsListDocumentsExampleState>  {
             data: 'number',
             // onColumnClick: this._onColumnClick,
             onRender: (item: IDocument) => {
-              return <span>{item.assetsImpactedCount}</span>;
+              return <span title={item.assetsImpactedCount}>{item.assetsImpactedCount}</span>;
             },
             isPadded: true
           },
@@ -150,7 +150,7 @@ class Landing extends React.Component<any, IDetailsListDocumentsExampleState>  {
             data: 'string[]',
             // onColumnClick: this._onColumnClick,
             onRender: (item: IDocument) => {
-              return <span>{item.assetsImpactedNames+','}</span>;
+              return <span title={item.assetsImpactedNames}>{item.assetsImpactedNames}</span>;
             },
             isPadded: true
           }

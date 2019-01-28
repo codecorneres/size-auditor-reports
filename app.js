@@ -102,7 +102,6 @@ app.get('/feedback', async function(req, res){
     url,
     method: 'GET',
   });
-  console.log(response.data);
   res.json(response.data)
 })
 app.post('/feedbackData', async function(req, res){

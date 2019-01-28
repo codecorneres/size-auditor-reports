@@ -7,7 +7,6 @@ import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection';
 import axios from 'axios';
 
 let _items: IDocument[] = [];
-// let tabledata: any[] = [];
 export interface IDetailsListDocumentsExampleState {
   columns: IColumn[];
   items: IDocument[];
@@ -69,14 +68,14 @@ class Feedback extends React.Component<any, any>  {
         this._onChangeText1 = this._onChangeText1.bind(this);
     }
     public componentDidMount()
-	{
-        this.getRepositoryList(this);
+	  {
+      this.getRepositoryList(this);
     }
+    
     public getRepositoryList(that: any)
-	{    
+  	{    
        axios.get('http://localhost:8001/feedback')
       .then(function (response) { 
-         console.log(response.data);
       
         const  tabledata = response.data;
         if (_items.length === 0) {
@@ -85,15 +84,17 @@ class Feedback extends React.Component<any, any>  {
             const newFile = tabledata.map((repository: any, index: number) => {
               return { serial: index+1,...repository};
             });
+
             _items = newFile;
+            
            _items = that._sortItems(_items, 'Serial');
-        } 
+          }
         that.setState({items: _items});
-        });
-        
+        });  
     }
     public render(): JSX.Element {
         const { columns, isCompactMode, items, isModalSelection} = this.state;
+        
         return (
             <div>
                 <Layout />

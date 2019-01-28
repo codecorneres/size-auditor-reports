@@ -55,14 +55,14 @@ class AssetsValue extends React.Component<any, IDetailsListDocumentsExampleState
     {
       key: 'column2',
       name: 'Module',
-      fieldName: 'name',
+      fieldName: 'module',
       minWidth: 200,
       maxWidth: 220,
       isResizable: true,
       onColumnClick: this._onColumnClick,
       data: 'string',
       onRender: (item: IDocument) => {
-        return  <span>{item.name}</span>;
+        return  <span>{item.module}</span>;
       },
       isPadded: true
     },
@@ -96,6 +96,7 @@ class AssetsValue extends React.Component<any, IDetailsListDocumentsExampleState
   {
       const { match: { params } } = this.props;
       parameters = params.name;
+      console.log(parameters);
       this.getRepositoryList(this);
   }
   public getRepositoryList(that: any)
