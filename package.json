@@ -32,7 +32,7 @@
     "multer": "^1.4.1",
     "office-ui-fabric-react": "^6.124.1",
     "pure-react-carousel": "^1.17.0",
-    "react": "^16.7.0",
+    "react": "^15.3.1",
     "react-bootstrap": "^0.32.4",
     "react-bootstrap-carousel": "^3.4.1",
     "react-bootstrap-datatable": "^1.0.0",
@@ -66,5 +66,4 @@
     "@types/react-dom": "^16.0.11",
     "typescript": "^3.2.2"
   }
-  
 }
