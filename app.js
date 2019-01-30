@@ -9,7 +9,8 @@ const app = express();
 const AdmZip = require('adm-zip');
 var unzip = require('unzip');
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.urlencoded({ extended: true }));
+
 const request = require('request');
 const multer = require("multer");
 app.use(function (req, res, next) {        
@@ -20,10 +21,10 @@ app.use(function (req, res, next) {
   next();  
 });
 
-const port = process.env.PORT || 8001;
+const port = process.env.PORT || 8000;
 app.set('port', port);
-const server = http.createServer(app);
-server.listen(port, () => console.log('Running'));
+/*const server = http.createServer(app);
+server.listen(port, () => console.log('Running'));*/
 const storage = multer.diskStorage({
   destination: "./src/upload/",
   filename: function(req, file, cb){
@@ -46,7 +47,6 @@ const uploads = multer({
 app.post("/Asset", upload, (req, res,next) => {
   res.status(200).send(req.body.modules);
 });
-
 app.post('/modules',uploads, (req, res) => {
    res.send(200);
 });
@@ -113,3 +113,14 @@ app.post('/feedbackData', async function(req, res){
   });
   res.json(response.data)
 })
+app.post('/assetsbutton', async function(req, res){
+  console.log(req.body);
+  return res.sendStatus(200);
+})
+
+app.use(express.static(__dirname + '/build'));
+app.get('/', function(req,res) {    
+  res.sendFile(path.join(__dirname+'/build/index.html'));
+});
+
+app.listen(port, () => console.log(`Listening on port ${port}`));

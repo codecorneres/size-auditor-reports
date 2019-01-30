@@ -2,6 +2,7 @@
   "name": "my-tsapp",
   "version": "0.1.0",
   "private": true,
+  "main": "app.js",
   "dependencies": {
     "@syncfusion/ej2-react-inputs": "^16.4.47",
     "@types/classnames": "^2.2.7",
@@ -65,4 +66,5 @@
     "@types/react-dom": "^16.0.11",
     "typescript": "^3.2.2"
   }
+  
 }

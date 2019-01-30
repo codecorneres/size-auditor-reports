@@ -5,6 +5,8 @@ import { jsonResponse } from './../upload/AssetsData';
 import { jsonModuleResponse } from './../upload/moduleData';
 import { Link } from 'office-ui-fabric-react/lib/Link';
 import Layout from './../Layout';
+import { PrimaryButton } from 'office-ui-fabric-react/lib/Button';
+import axios from 'axios';
 
 let _items: IDocument[] = [];
 let currentFive: IDocument[] = [];
@@ -42,8 +44,8 @@ class Landing extends React.Component<any, IDetailsListDocumentsExampleState>  {
         key: 'column1',
         name: 'Serial',
         fieldName: 'serial',
-        minWidth: 200,
-        maxWidth: 220,
+        minWidth: 100,
+        maxWidth: 120,
         isResizable: true,
        // onColumnClick: this._onColumnClick,
         data: 'number',
@@ -56,8 +58,8 @@ class Landing extends React.Component<any, IDetailsListDocumentsExampleState>  {
         key: 'column2',
         name: 'Asset',
         fieldName: 'asset',
-        minWidth: 200,
-        maxWidth: 220,
+        minWidth: 300,
+        maxWidth: 320,
         isResizable: true,
         // onColumnClick: this._onColumnClick,
         data: 'string',
@@ -70,8 +72,8 @@ class Landing extends React.Component<any, IDetailsListDocumentsExampleState>  {
         key: 'column3',
         name: 'Size Difference',
         fieldName: 'sizeDifference',
-        minWidth: 200,
-        maxWidth: 220,
+        minWidth: 100,
+        maxWidth: 120,
         isResizable: true,
         isCollapsible: true,
         data: 'string',
@@ -80,14 +82,29 @@ class Landing extends React.Component<any, IDetailsListDocumentsExampleState>  {
           return <span title={item.sizeDifference}>{item.sizeDifference}</span>;
         },
         isPadded: true
+      },
+      {
+        key: 'column4',
+        name: 'Action',
+        fieldName: 'Action',
+        minWidth: 100,
+        maxWidth: 120,
+        isResizable: true,
+        isCollapsible: true,
+        data: 'string',
+       // onColumnClick: this._onColumnClick,
+        onRender: (item: IDocument) => {
+          return <PrimaryButton data-automation-id="test" text="Submit" onClick={(ev) => { this.primarybuttonclick(item.asset) }} />;
+        },
+        isPadded: true
       }];
       const _columns2: IColumn[] = [
         {
           key: 'column1',
           name: 'Serial',
           fieldName: 'serial',
-          minWidth: 100,
-          maxWidth: 120,
+          minWidth: 50,
+          maxWidth: 70,
           isResizable: true,
          // onColumnClick: this._onColumnClick,
           data: 'number',
@@ -100,8 +117,8 @@ class Landing extends React.Component<any, IDetailsListDocumentsExampleState>  {
           key: 'column2',
           name: 'Module',
           fieldName: 'module',
-          minWidth: 100,
-          maxWidth: 120,
+          minWidth: 150,
+          maxWidth: 170,
           isResizable: true,
          // onColumnClick: this._onColumnClick,
           data: 'string',
@@ -114,8 +131,8 @@ class Landing extends React.Component<any, IDetailsListDocumentsExampleState>  {
           key: 'column3',
           name: 'Size Difference',
           fieldName: 'sizeDifference',
-          minWidth: 100,
-          maxWidth: 120,
+          minWidth: 70,
+          maxWidth: 90,
           isCollapsible: true,
           data: 'string',
          // onColumnClick: this._onColumnClick,
@@ -128,8 +145,8 @@ class Landing extends React.Component<any, IDetailsListDocumentsExampleState>  {
             key: 'column4',
             name: 'Assets Affected',
             fieldName: 'assetsImpactedCount',
-            minWidth: 100,
-            maxWidth: 120,
+            minWidth: 50,
+            maxWidth: 70,
             isResizable: true,
             isCollapsible: true,
             data: 'number',
@@ -143,8 +160,8 @@ class Landing extends React.Component<any, IDetailsListDocumentsExampleState>  {
             key: 'column5',
             name: 'Asset Names',
             fieldName: 'assetsImpactedNames',
-            minWidth: 100,
-            maxWidth: 120,
+            minWidth: 200,
+            maxWidth: 220,
             isResizable: true,
             isCollapsible: true,
             data: 'string[]',
@@ -168,6 +185,15 @@ class Landing extends React.Component<any, IDetailsListDocumentsExampleState>  {
       showResults: false,
       showResults2: false
       };
+    }
+    public primarybuttonclick(ev: any): void {
+      const data = {'asset': ev};
+      if (data){
+        axios.post('/assetsbutton',data)
+        .then(function (response) { 
+          console.log(response);
+        });
+      }  
     }
     public componentDidMount()
     {

@@ -53,7 +53,7 @@ class Feedback extends React.Component<any, any>  {
             onColumnClick: this._onColumnClick,
             data: 'string',
             onRender: (item: IDocument) => {
-              return  <span>{item.feedback}</span>;
+              return  <span title={item.feedback}>{item.feedback}</span>;
             },
             isPadded: true
           }];
@@ -74,7 +74,7 @@ class Feedback extends React.Component<any, any>  {
     
     public getRepositoryList(that: any)
   	{    
-       axios.get('http://localhost:8001/feedback')
+       axios.get('/feedback')
       .then(function (response) { 
       
         const  tabledata = response.data;
@@ -158,7 +158,7 @@ class Feedback extends React.Component<any, any>  {
             "feedback": this.state.feedbacks
         }
        if(this.state.feedbacks){
-        axios.post('http://localhost:8001/feedbackData',data)
+        axios.post('/feedbackData',data)
         .then(function (response) { 
            console.log(response);
         });

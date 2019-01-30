@@ -189,11 +189,11 @@ class Carousel extends React.Component<any, any>  {
     {
       data.append('file', this.state.selectedFile, this.state.selectedFile.name);
       data2.append('file', this.state.selectedFile2, this.state.selectedFile2.name);
-      axios.post('http://localhost:8001/Asset',data)
+      axios.post('/Asset',data)
       .then(function (response) { 
         // console.log(response);
       });
-      axios.post('http://localhost:8001/modules',data2)
+      axios.post('/modules',data2)
       .then(function (response) {  
         // console.log(response);
       });
@@ -208,9 +208,9 @@ class Carousel extends React.Component<any, any>  {
       data.append('file', this.state.selectedFile3, this.state.selectedFile3.name);
       data.append('modules', this.state.firstinput);
        const that = this;
-      axios.post('http://127.0.0.1:8001/Asset',data)
+      axios.post('/Asset',data)
       .then(function (response) {
-        axios.post('http://127.0.0.1:8001/saveFile',{'modules':that.state.firstinput}).then(function (resp: any) {
+        axios.post('/saveFile',{'modules':that.state.firstinput}).then(function (resp: any) {
            localStorage.setItem('module', JSON.stringify(resp.data));
            that.setState({ shouldRedirect: true });
         });
@@ -222,11 +222,11 @@ class Carousel extends React.Component<any, any>  {
     if(this.state.secondinput && this.state.thirdinput !== '')
     {
       const that = this;
-      axios.post('http://127.0.0.1:8001/saveAssetFile',{'asset':this.state.secondinput}).then(function (response: any) {
+      axios.post('/saveAssetFile',{'asset':this.state.secondinput}).then(function (response: any) {
 
         localStorage.setItem('asset', JSON.stringify(response.data));
       });
-      axios.post('http://127.0.0.1:8001/saveFile',{'modules':this.state.thirdinput}).then(function (response: any) {
+      axios.post('/saveFile',{'modules':this.state.thirdinput}).then(function (response: any) {
         localStorage.setItem('module', JSON.stringify(response.data));
         that.setState({ shouldRedirect: true });
       });

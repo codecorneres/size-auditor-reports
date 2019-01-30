@@ -33,8 +33,8 @@ class Module extends React.Component<any, IDetailsListDocumentsExampleState>  {
       key: 'column1',
       name: 'Serial',
       fieldName: 'serial',
-      minWidth: 100,
-      maxWidth: 120,
+      minWidth: 50,
+      maxWidth: 70,
       isResizable: true,
       onColumnClick: this._onColumnClick,
       data: 'number',
@@ -47,8 +47,8 @@ class Module extends React.Component<any, IDetailsListDocumentsExampleState>  {
       key: 'column2',
       name: 'Module',
       fieldName: 'module',
-      minWidth: 100,
-      maxWidth: 120,
+      minWidth: 150,
+      maxWidth: 170,
       isResizable: true,
       onColumnClick: this._onColumnClick,
       data: 'string',
@@ -61,8 +61,8 @@ class Module extends React.Component<any, IDetailsListDocumentsExampleState>  {
       key: 'column3',
       name: 'Size Difference',
       fieldName: 'sizeDifference',
-      minWidth: 100,
-      maxWidth: 120,
+      minWidth: 70,
+      maxWidth: 90,
       isRowHeader: true,
       isSorted: true,
       isSortedDescending: false,
@@ -80,8 +80,8 @@ class Module extends React.Component<any, IDetailsListDocumentsExampleState>  {
       key: 'column4',
       name: 'Assets Affected',
       fieldName: 'assetsImpactedCount',
-      minWidth: 100,
-      maxWidth: 120,
+      minWidth: 50,
+      maxWidth: 70,
       isResizable: true,
       isCollapsible: true,
       data: 'number',
@@ -95,8 +95,8 @@ class Module extends React.Component<any, IDetailsListDocumentsExampleState>  {
       key: 'column5',
       name: 'Asset Names',
       fieldName: 'assetsImpactedNames',
-      minWidth: 100,
-      maxWidth: 120,
+      minWidth: 200,
+      maxWidth: 220,
       isResizable: true,
       isCollapsible: true,
       data: 'string[]',
@@ -135,7 +135,7 @@ class Module extends React.Component<any, IDetailsListDocumentsExampleState>  {
           return { serial: index+1,...repository};
         });
         _items = newFile;
-        _items = that._sortItems(_items, 'module');
+        _items = that._sortItems(_items, 'serial');
       } 
       that.setState({items: _items});
   }

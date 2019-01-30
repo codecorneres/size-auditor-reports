@@ -1,11 +1,15 @@
 {
-  "main.css": "static/css/main.c56ee42c.css",
-  "main.css.map": "static/css/main.c56ee42c.css.map",
-  "main.js": "static/js/main.c81e1fda.js",
-  "main.js.map": "static/js/main.c81e1fda.js.map",
+  "main.css": "static/css/main.17ea0bcb.css",
+  "main.css.map": "static/css/main.17ea0bcb.css.map",
+  "main.js": "static/js/main.fb284c39.js",
+  "main.js.map": "static/js/main.fb284c39.js.map",
   "static/media/fontawesome-webfont.eot": "static/media/fontawesome-webfont.674f50d2.eot",
   "static/media/fontawesome-webfont.svg?v=4.7.0": "static/media/fontawesome-webfont.912ec66d.svg",
   "static/media/fontawesome-webfont.ttf?v=4.7.0": "static/media/fontawesome-webfont.b06871f2.ttf",
   "static/media/fontawesome-webfont.woff2?v=4.7.0": "static/media/fontawesome-webfont.af7ae505.woff2",
-  "static/media/fontawesome-webfont.woff?v=4.7.0": "static/media/fontawesome-webfont.fee66e71.woff"
+  "static/media/fontawesome-webfont.woff?v=4.7.0": "static/media/fontawesome-webfont.fee66e71.woff",
+  "static/media/react-bootstrap-carousel.eot": "static/media/react-bootstrap-carousel.21823303.eot",
+  "static/media/react-bootstrap-carousel.svg": "static/media/react-bootstrap-carousel.2fe6d179.svg",
+  "static/media/react-bootstrap-carousel.ttf": "static/media/react-bootstrap-carousel.f7448c04.ttf",
+  "static/media/react-bootstrap-carousel.woff": "static/media/react-bootstrap-carousel.c746c488.woff"
 }

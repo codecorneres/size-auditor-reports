@@ -1,12 +1,14 @@
 import 'react-bootstrap/dist/react-bootstrap';
 import * as React from 'react';
-// import axios from 'axios';
+import axios from 'axios';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { DetailsList, DetailsListLayoutMode, Selection, SelectionMode, IColumn } from 'office-ui-fabric-react/lib/DetailsList';
 import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection';
 import { Link } from 'office-ui-fabric-react/lib/Link';
 import { jsonResponse } from './../upload/AssetsData';
 import Layout from './../Layout';
+import { PrimaryButton } from 'office-ui-fabric-react/lib/Button';
+
 let _items: IDocument[] = [];
 let asset: any = null;
 export interface IDetailsListDocumentsExampleState {
@@ -21,6 +23,7 @@ export interface IDocument {
   serial: number;
   asset: string;
   sizeDifference: string;
+  button: [];
 }
 
 class Asset extends React.Component<any, IDetailsListDocumentsExampleState>  {
@@ -31,8 +34,8 @@ class Asset extends React.Component<any, IDetailsListDocumentsExampleState>  {
       key: 'column1',
       name: 'Serial',
       fieldName: 'serial',
-      minWidth: 200,
-      maxWidth: 220,
+      minWidth: 100,
+      maxWidth: 120,
       isRowHeader: true,
       isResizable: true,
       isSorted: true,
@@ -50,8 +53,8 @@ class Asset extends React.Component<any, IDetailsListDocumentsExampleState>  {
       key: 'column2',
       name: 'Asset',
       fieldName: 'asset',
-      minWidth: 200,
-      maxWidth: 220,
+      minWidth: 300,
+      maxWidth: 320,
       isResizable: true,
       onColumnClick: this._onColumnClick,
       data: 'string',
@@ -64,14 +67,28 @@ class Asset extends React.Component<any, IDetailsListDocumentsExampleState>  {
       key: 'column3',
       name: 'Size Difference',
       fieldName: 'sizeDifference',
-      minWidth: 200,
-      maxWidth: 220,
+      minWidth: 100,
+      maxWidth: 120,
       isResizable: true,
       isCollapsible: true,
       data: 'string',
       onColumnClick: this._onColumnClick,
       onRender: (item: IDocument) => {
         return <span title={item.sizeDifference}>{item.sizeDifference}</span>;
+      },
+      isPadded: true
+    },
+    {
+      key: 'column4',
+      name: 'Action',
+      fieldName: 'Action',
+      minWidth: 100,
+      maxWidth: 120,
+      isResizable: true,
+      isCollapsible: true,
+      data: 'string',
+      onRender: (item: IDocument) => {
+        return <PrimaryButton data-automation-id="test" text="Submit" onClick={(ev) => { this.primarybuttonclick(item.asset) }} />;
       },
       isPadded: true
     }];
@@ -91,24 +108,34 @@ class Asset extends React.Component<any, IDetailsListDocumentsExampleState>  {
   }
   public getRepositoryList(that: any)
 	{
-      let tabledata: any =  [];
-      if(asset==null){
-         tabledata = jsonResponse.tabledata;
-      }
-      else{
-        tabledata = asset;
-      }
-      if (_items.length === 0) {
-        _items.push()
-        
-        const newFile = tabledata.map((repository: any, index: number) => {
-          return { serial: index+1,...repository};
-        });
-        _items = newFile;
-        _items = that._sortItems(_items, 'Serial');
-      } 
-      that.setState({items: _items});
-	}
+    let tabledata: any =  [];
+    if(asset==null){
+        tabledata = jsonResponse.tabledata;
+    }
+    else{
+      tabledata = asset;
+    }
+    if (_items.length === 0) {
+      _items.push()
+      
+      const newFile = tabledata.map((repository: any, index: number) => {
+        // const button = ();
+        return { serial: index+1,...repository};
+      });
+      _items = newFile;
+      _items = that._sortItems(_items, 'Serial');
+    } 
+    that.setState({items: _items});
+  }
+  public primarybuttonclick(ev: any): void {
+    const data = {'asset': ev};
+    if (data){
+      axios.post('/assetsbutton',data)
+      .then(function (response) { 
+        console.log(response);
+      });
+    }  
+  }
   public render(): JSX.Element {
     const { columns, isCompactMode, items, isModalSelection} = this.state;
     return (

@@ -21,9 +21,9 @@ export interface IDocument {
   [key: string]: any;
   serial: number;
   assets: string;
-  module: [
+  modules: [
     {
-      name: string,
+      module: string,
       sizeDifference: string
     }
   ];
@@ -62,7 +62,7 @@ class AssetsValue extends React.Component<any, IDetailsListDocumentsExampleState
       onColumnClick: this._onColumnClick,
       data: 'string',
       onRender: (item: IDocument) => {
-        return  <span>{item.module}</span>;
+        return  <span title={item.module}>{item.module}</span>;
       },
       isPadded: true
     },
