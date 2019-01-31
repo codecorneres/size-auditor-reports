@@ -30,7 +30,7 @@ const port = process.env.PORT || 8000;
 app.set('port', port);
 /*const server = http.createServer(app);
 server.listen(port, () => console.log('Running'));*/
-/*const storage = multer.diskStorage({
+const storage = multer.diskStorage({
   destination: "./src/upload/",
   filename: function(req, file, cb){
      cb(null,"AssetsData.js");
@@ -54,7 +54,7 @@ app.post("/Asset", upload, (req, res,next) => {
 });
 app.post('/modules',uploads, (req, res) => {
    res.send(200);
-});*/
+});
 
 app.post('/saveFile',async function(req, res){
   const url = req.body.modules;
