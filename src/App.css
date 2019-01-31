@@ -156,3 +156,28 @@ a:focus {
 .ms-DetailsRow-cell span {
   cursor: pointer;
 }
+/*--ExpressFile Upload--*/
+.fileuploaddiv{
+  height: 400px;
+}
+.fileuploadbtndv{
+  position: absolute;
+  right: 15%;
+  bottom: 20px;
+  left: 15%;
+  z-index: 10;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  color: #fff;
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(0,0,0,.6);
+}
+.inlinfields{
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  display: inline-flex;
+}

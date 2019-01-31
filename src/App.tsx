@@ -10,6 +10,7 @@ import Asset from './components/Asset';
 import Pyramid from './components/Pyramid';
 import AssetsValue from './components/AssetsValue';
 import Feedback from './components/Feedback';
+import ExpressFileUpload from './components/ExpressFileUpload'
 class App extends React.Component<any, any>  {
  public render(): JSX.Element {
   initializeIcons();
@@ -25,6 +26,7 @@ class App extends React.Component<any, any>  {
             <Route exact path='/Pyramid' component={Pyramid} />
             <Route exact path='/Assets/:name' component={AssetsValue} />
             <Route exact path='/Feedback' component={Feedback} />
+            <Route exact path='/ExpressFileUpload' component={ExpressFileUpload} />
           </Switch>
         </Router>
       </div>

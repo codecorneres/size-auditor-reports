@@ -8,6 +8,11 @@ var fs = require('fs');
 const app = express();
 const AdmZip = require('adm-zip');
 var unzip = require('unzip');
+const fileUpload = require('express-fileupload');
+const cors = require('cors');
+
+app.use(fileUpload());
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -25,7 +30,7 @@ const port = process.env.PORT || 8000;
 app.set('port', port);
 /*const server = http.createServer(app);
 server.listen(port, () => console.log('Running'));*/
-const storage = multer.diskStorage({
+/*const storage = multer.diskStorage({
   destination: "./src/upload/",
   filename: function(req, file, cb){
      cb(null,"AssetsData.js");
@@ -49,7 +54,8 @@ app.post("/Asset", upload, (req, res,next) => {
 });
 app.post('/modules',uploads, (req, res) => {
    res.send(200);
-});
+});*/
+
 app.post('/saveFile',async function(req, res){
   const url = req.body.modules;
   const writer = fs.createWriteStream(`${__dirname}/getzip/modulesData.zip`);
@@ -116,6 +122,25 @@ app.post('/feedbackData', async function(req, res){
 app.post('/assetsbutton', async function(req, res){
   console.log(req.body);
   return res.sendStatus(200);
+})
+ 
+app.post('/ExpressAsset', (req, res, next) => {
+  let imageFile = req.files.file;
+  imageFile.mv(`${__dirname}/src/upload/AssetsData.js`, function(err) {
+    if (err) {
+      return res.status(500).send(err);
+    }
+    res.json({file: `src/upload/AssetsData.js`});
+  });
+})
+app.post('/Expressmodules', (req, res, next) => {
+  let imageFile = req.files.file;
+  imageFile.mv(`${__dirname}/src/upload/moduleData.js`, function(err) {
+    if (err) {
+      return res.status(500).send(err);
+    }
+    res.json({file: `src/upload/moduleData.js`});
+  });
 })
 
 app.use(express.static(__dirname + '/build'));
