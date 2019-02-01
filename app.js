@@ -29,11 +29,12 @@ app.use(function (req, res, next) {
 const port = process.env.PORT || 8000;
 app.set('port', port);
 /*const server = http.createServer(app);
-server.listen(port, () => console.log('Running'));*/
-const storage = multer.diskStorage({
-  destination: "./src/upload/",
+server.listen(port, () => console.log(`Listening on port ${port}`));*/
+/*---Upload File of carousel use multer--*/
+/*const storage = multer.diskStorage({
+  destination: `${__dirname}/src/upload/assetsData`,
   filename: function(req, file, cb){
-     cb(null,"AssetsData.js");
+     cb(null,"assetsData.json");
   }
 });
 const upload = multer({
@@ -43,19 +44,29 @@ const upload = multer({
 const storages = multer.diskStorage({
   destination: `${__dirname}/src/upload/`,
   filename: function(req, file, cb){
-     cb(null,"moduleData.js");
+     cb(null,"moduleData.json");
   }
 });
 const uploads = multer({
   storage: storages,
-}).single("file");
-app.post("/Asset", upload, (req, res,next) => {
-  res.status(200).send(req.body.modules);
-});
-app.post('/modules',uploads, (req, res) => {
-   res.send(200);
-});
+}).single("file");*/
 
+app.post("/Asset", async (req, res) => {
+  let imageFile = req.files.file;
+  imageFile.mv(`${__dirname}/src/upload/assetsData/assetsData.json`, function(err) {
+    if (err) {
+      return res.status(500).send(err);
+    }
+    res.json({file: `src/upload/assetsData.json`});
+  });
+});
+/*app.post('/modules',uploads, async (req, res) => {
+  console.log(req.files);
+  res.status(200).send(req.file);
+});*/
+
+
+/*---Zip unzip url file and Get Data ---*/
 app.post('/saveFile',async function(req, res){
   const url = req.body.modules;
   const writer = fs.createWriteStream(`${__dirname}/getzip/modulesData.zip`);
@@ -102,6 +113,7 @@ app.post('/saveAssetFile', async function(req, res){
     writer.on('error', reject)
   });
 });
+/*---Fetch And Post Data Of Feddback page---*/
 app.get('/feedback', async function(req, res){
   const url =  'https://twentyfourhourfitness.herokuapp.com/getfeedback';
   const response = await Axios({
@@ -123,26 +135,41 @@ app.post('/assetsbutton', async function(req, res){
   console.log(req.body);
   return res.sendStatus(200);
 })
- 
+ /*--upload File from ExpressFile Upload -----*/ 
 app.post('/ExpressAsset', (req, res, next) => {
   let imageFile = req.files.file;
-  imageFile.mv(`${__dirname}/src/upload/AssetsData.js`, function(err) {
+  imageFile.mv(`${__dirname}/src/upload/assetsData/assetsData.json`, function(err) {
     if (err) {
       return res.status(500).send(err);
     }
-    res.json({file: `src/upload/AssetsData.js`});
+    let imageFile2 = req.files.file2;
+    imageFile2.mv(`${__dirname}/src/upload/modulesData/modulesData.json`, function(errs) {
+      if (errs) {
+        return res.status(500).send(errs);
+      }
+      res.json({file: `src/upload/modulesData.json`});
+    });
   });
 })
-app.post('/Expressmodules', (req, res, next) => {
-  let imageFile = req.files.file;
-  imageFile.mv(`${__dirname}/src/upload/moduleData.js`, function(err) {
-    if (err) {
-      return res.status(500).send(err);
-    }
-    res.json({file: `src/upload/moduleData.js`});
+/*app.post('/Expressmodules', (req, res, next) => {
+ //
+})*/
+/*---Get json files------*/
+app.get('/AssetsData',async function(req, res, next) {
+  await fs.readFile(__dirname +"/src/upload/assetsData/assetsData.json", 'utf-8' , function(err, buf) {
+    res.json(JSON.parse(buf));
   });
 })
-
+app.get('/modulesData',async function(req, res, next) {
+  await fs.readFile(__dirname +"/src/upload/modulesData/modulesData.json", 'utf-8' ,async function(err, buf) {
+    res.json(JSON.parse(buf));
+  });
+})
+app.get('/AssetsValueData',async function(req, res, next) {
+  await fs.readFile(__dirname +"/src/upload/assetsValueData.json", 'utf-8' ,function(err, buf) {
+    res.json(JSON.parse(buf));
+  });
+})
 app.use(express.static(__dirname + '/build'));
 app.get('/', function(req,res) {    
   res.sendFile(path.join(__dirname+'/build/index.html'));

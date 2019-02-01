@@ -1,14 +1,13 @@
 import 'react-bootstrap/dist/react-bootstrap';
 import * as React from 'react';
-// import axios from 'axios';
+import axios from 'axios';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { DetailsList, DetailsListLayoutMode, Selection, SelectionMode, IColumn } from 'office-ui-fabric-react/lib/DetailsList';
 import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection';
-import { jsonModuleResponse } from './../upload/moduleData';
+// import { jsonModuleResponse } from './../upload/moduleData';
 import Layout from './../Layout';
 
 let _items: IDocument[] = [];
-let modules: any =  null;
 export interface IDetailsListDocumentsExampleState {
   columns: IColumn[];
   items: IDocument[];
@@ -116,19 +115,15 @@ class Module extends React.Component<any, IDetailsListDocumentsExampleState>  {
   }
   public componentDidMount()
 	{
-    modules = localStorage.getItem('module');
-    modules = JSON.parse(modules);
     this.getRepositoryList(this);
   }  
   public getRepositoryList(that: any)
   {
     let tabledata: any =  [];
-      if(modules==null){
-         tabledata = jsonModuleResponse.tabledata;
-      }
-      else{
-        tabledata = modules;
-      }
+    axios.get('http://localhost:8000/modulesData')
+      .then(function (response) {
+      // console.log(response);
+      tabledata= response.data;
       if (_items.length === 0) {
         _items.push()
         const newFile = tabledata.map((repository: any, index: number) => {
@@ -138,6 +133,7 @@ class Module extends React.Component<any, IDetailsListDocumentsExampleState>  {
         _items = that._sortItems(_items, 'serial');
       } 
       that.setState({items: _items});
+    });
   }
   public render(): JSX.Element { 
     const { columns, isCompactMode, items, isModalSelection } = this.state;

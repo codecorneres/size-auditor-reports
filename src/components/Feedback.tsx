@@ -74,7 +74,7 @@ class Feedback extends React.Component<any, any>  {
     
     public getRepositoryList(that: any)
   	{    
-       axios.get('/feedback')
+       axios.get('http://localhost:8000/feedback')
       .then(function (response) { 
       
         const  tabledata = response.data;
@@ -158,7 +158,7 @@ class Feedback extends React.Component<any, any>  {
             "feedback": this.state.feedbacks
         }
        if(this.state.feedbacks){
-        axios.post('/feedbackData',data)
+        axios.post('http://localhost:8000/feedbackData',data)
         .then(function (response) { 
            console.log(response);
         });

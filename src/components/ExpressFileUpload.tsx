@@ -32,20 +32,22 @@ class ExpressFileUpload extends React.Component<any, any>  {
     })
   }
   public handleUpload(){
+    const that = this;
     const data = new FormData()
-    const data2 = new FormData();
+    // const data2 = new FormData();
     data.append('file', this.state.selectedFile, this.state.selectedFile.name);
-    data2.append('file', this.state.selectedFile2,this.state.selectedFile2.name);
+    data.append('file2', this.state.selectedFile2,this.state.selectedFile2.name);
     if(this.state.selectedFile.name && this.state.selectedFile2.name !== ''){
-      axios.post('/ExpressAsset',data)
+      axios.post('http://localhost:8000/ExpressAsset',data)
       .then(function (response) {
-      // console.log(response);
+       console.log(response);
+       that.setState({ shouldRedirect: true });
       });
-      axios.post('/Expressmodules',data2)
+     /* axios.post('http://localhost:8000/Expressmodules',data2)
         .then(function (response) {
         // console.log(response);
-      });
-      this.setState({ shouldRedirect: true });
+      });*/
+     
     }
     
   }
@@ -61,7 +63,7 @@ class ExpressFileUpload extends React.Component<any, any>  {
           <div className="ms-Grid-col ms-sm12 ms-md4 ms-lg8 Apps fileuploaddiv">
             <div className="inlinfields">
               <input type="file" name="file" className="" onChange={this.handleselectedFile}/>
-              <input type="file" name="" className="" onChange={this.handleselectedFile2}/>
+              <input type="file" name="file2" className="" onChange={this.handleselectedFile2}/>
             </div>
             <div className="fileuploadbtndv">
               <PrimaryButton

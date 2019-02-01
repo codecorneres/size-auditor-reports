@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { DetailsList, DetailsListLayoutMode, Selection, SelectionMode, IColumn } from 'office-ui-fabric-react/lib/DetailsList';
 import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection';
-import { jsonResponse } from './../upload/AssetsData';
-import { jsonModuleResponse } from './../upload/moduleData';
+// import { jsonResponse } from './../upload/AssetsData';
+// import { jsonModuleResponse } from './../upload/moduleData';
 import { Link } from 'office-ui-fabric-react/lib/Link';
 import Layout from './../Layout';
 import { PrimaryButton } from 'office-ui-fabric-react/lib/Button';
@@ -12,8 +12,7 @@ let _items: IDocument[] = [];
 let currentFive: IDocument[] = [];
 let _items2: IDocument[] = [];
 let currentFive2: IDocument[] = [];
-let modules: any =  null;
-let asset: any = null;
+
 export interface IDetailsListDocumentsExampleState {
     columns: IColumn[];
     items: IDocument[];
@@ -189,7 +188,7 @@ class Landing extends React.Component<any, IDetailsListDocumentsExampleState>  {
     public primarybuttonclick(ev: any): void {
       const data = {'asset': ev};
       if (data){
-        axios.post('/assetsbutton',data)
+        axios.post('http://localhost:8000/assetsbutton',data)
         .then(function (response) { 
           console.log(response);
         });
@@ -197,42 +196,36 @@ class Landing extends React.Component<any, IDetailsListDocumentsExampleState>  {
     }
     public componentDidMount()
     {
-      modules = localStorage.getItem('module');
-      asset = localStorage.getItem('asset');
-      asset = JSON.parse(asset);
-      modules =JSON.parse(modules);
-      if(modules ==null && asset==null){
         this.getRepositoryAssetsList(this);
         this.getRepositoryModuleList(this);
-      }
-      else if (asset==null && modules !=null){
-        this.getRepositoryList3(this);
-        this.getRepositoryAssetsList(this);
-      }
-      else{
-        this.getRepositoryList3(this);
-        this.getRepositoryList4(this);
-      }
     }
-    public getRepositoryAssetsList(that: any)
+    public async getRepositoryAssetsList(that: any)
     {
-      const tabledata = jsonResponse.tabledata;
-      if (_items.length === 0) {
-        _items.push()
-        const newFile = tabledata.map((repository: any, index: number) => {
-          return { serial: index+1,...repository};
-        });
-        _items = newFile;
-        const indexOfLastTodo = that.state.currentPage * that.state.todosPerPage;
-        const indexOfFirstTodo = indexOfLastTodo - that.state.todosPerPage;
-        currentFive = _items.slice(indexOfFirstTodo, indexOfLastTodo);
-        
-      }
-      that.setState({items: currentFive});  
+      let tabledata: any =  [];
+      await axios.get('http://localhost:8000/AssetsData')
+        .then(function (response) {
+        // console.log(response);
+        tabledata = response.data;
+        if (_items.length === 0) {
+          _items.push()
+          const newFile = tabledata.map((repository: any, index: number) => {
+            return { serial: index+1,...repository};
+          });
+          _items = newFile;
+          const indexOfLastTodo = that.state.currentPage * that.state.todosPerPage;
+          const indexOfFirstTodo = indexOfLastTodo - that.state.todosPerPage;
+          currentFive = _items.slice(indexOfFirstTodo, indexOfLastTodo); 
+        }
+        that.setState({items: currentFive}); 
+      });  
     }
-    public  getRepositoryModuleList(that: any){
-      const tabledata2 = jsonModuleResponse.tabledata;
-      if (_items2.length === 0) {
+    public  async getRepositoryModuleList(that: any){
+      let tabledata2: any =  [];
+     await axios.get('http://localhost:8000/modulesData')
+        .then(function (response) {
+        // console.log(response);
+        tabledata2 = response.data;
+        if (_items2.length === 0) {
           _items2.push()
           const newFile = tabledata2.map((repository: any, index: number) => {
           return { serial: index+1,...repository};
@@ -243,8 +236,9 @@ class Landing extends React.Component<any, IDetailsListDocumentsExampleState>  {
           currentFive2 = _items2.slice(indexOfFirstTodo, indexOfLastTodo);
       } 
       that.setState({items2: currentFive2}); 
+      });
     }
-    public getRepositoryList3(that: any)
+   /* public getRepositoryList3(that: any)
     {
       if (_items2.length === 0) {
           _items2.push()
@@ -273,7 +267,7 @@ class Landing extends React.Component<any, IDetailsListDocumentsExampleState>  {
           currentFive2 = _items.slice(indexOfFirstTodo, indexOfLastTodo);
       } 
      that.setState({items: currentFive2}); 
-    }
+    }*/
     public render(): JSX.Element {
       const { columns,columns2, isCompactMode, items, items2, isModalSelection} = this.state;
       return (

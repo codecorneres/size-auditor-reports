@@ -2,8 +2,9 @@ import * as React from 'react';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { DetailsList, DetailsListLayoutMode, Selection, SelectionMode, IColumn } from 'office-ui-fabric-react/lib/DetailsList';
 import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection';
-import { jsonResponse } from './../upload/AssetsValueData';
+// import { jsonResponse } from './../upload/AssetsValueData';
 import Layout from './../Layout';
+import axios from 'axios';
 let _items: IDocument[] = [];
 let parameters: any = '';
 export interface IDetailsListDocumentsExampleState {
@@ -107,21 +108,28 @@ class AssetsValue extends React.Component<any, IDetailsListDocumentsExampleState
       sizeDifference: "+50"
     }]*/
     _items = [];
-    const tabledata = jsonResponse.tabledata;
-    if (_items.length === 0) {
-      for(const row of tabledata){
-        if(row.asset === parameters){
-            const moduledata = row.modules;
-            _items.push()
-            const newFile = moduledata.map((repository: any, index: number) => {
-              return { serial: index+1,...repository};
-            });
-            _items = newFile;
+    let tabledata: any =  [];
+    axios.get('http://localhost:8000/AssetsValueData')
+        .then(function (response) {
+        // console.log(response);
+        tabledata = response.data;
+        if (_items.length === 0) {
+          for(const row of tabledata){
+            console.log(row.asset);
+            if(row.asset === parameters){
+                const moduledata = row.modules;
+                _items.push()
+                const newFile = moduledata.map((repository: any, index: number) => {
+                  return { serial: index+1,...repository};
+                });
+                _items = newFile;
+            }
+          }
+          _items = that._sortItems(_items, 'Serial');
         }
-      }
-      _items = that._sortItems(_items, 'Serial');
-    }
-    that.setState({items: _items});
+        that.setState({items: _items});
+      });
+   
   }
 
   public render(): JSX.Element {

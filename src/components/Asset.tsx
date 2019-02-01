@@ -5,12 +5,11 @@ import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { DetailsList, DetailsListLayoutMode, Selection, SelectionMode, IColumn } from 'office-ui-fabric-react/lib/DetailsList';
 import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection';
 import { Link } from 'office-ui-fabric-react/lib/Link';
-import { jsonResponse } from './../upload/AssetsData';
+// import { jsonResponse } from './../upload/AssetsData';
 import Layout from './../Layout';
 import { PrimaryButton } from 'office-ui-fabric-react/lib/Button';
 
 let _items: IDocument[] = [];
-let asset: any = null;
 export interface IDetailsListDocumentsExampleState {
   columns: IColumn[];
   items: IDocument[];
@@ -102,35 +101,32 @@ class Asset extends React.Component<any, IDetailsListDocumentsExampleState>  {
   }
   public componentDidMount()
 	{
-    asset = localStorage.getItem('asset');
-    asset = JSON.parse(asset);
     this.getRepositoryList(this);
   }
   public getRepositoryList(that: any)
 	{
     let tabledata: any =  [];
-    if(asset==null){
-        tabledata = jsonResponse.tabledata;
-    }
-    else{
-      tabledata = asset;
-    }
-    if (_items.length === 0) {
-      _items.push()
-      
-      const newFile = tabledata.map((repository: any, index: number) => {
-        // const button = ();
-        return { serial: index+1,...repository};
-      });
-      _items = newFile;
-      _items = that._sortItems(_items, 'Serial');
-    } 
-    that.setState({items: _items});
+    axios.get('http://localhost:8000/AssetsData')
+      .then(function (response) {
+      // .log(response.data);
+      tabledata = response.data;
+      if (_items.length === 0) {
+        _items.push()
+        console.log(tabledata);
+        const newFile = tabledata.map((repository: any, index: number) => {
+          // const button = ();
+          return { serial: index+1,...repository};
+        });
+        _items = newFile;
+        _items = that._sortItems(_items, 'Serial');
+      } 
+      that.setState({items: _items});
+    });
   }
   public primarybuttonclick(ev: any): void {
     const data = {'asset': ev};
     if (data){
-      axios.post('/assetsbutton',data)
+      axios.post('http://localhost:8000/assetsbutton',data)
       .then(function (response) { 
         console.log(response);
       });
