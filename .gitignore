@@ -1,5 +1,5 @@
 lib
 node_modules
 .vscode
-/build
+build
 package-lock.json

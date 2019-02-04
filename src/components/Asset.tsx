@@ -106,7 +106,7 @@ class Asset extends React.Component<any, IDetailsListDocumentsExampleState>  {
   public getRepositoryList(that: any)
 	{
     let tabledata: any =  [];
-    axios.get('http://localhost:8000/AssetsData')
+    axios.get('/AssetsData')
       .then(function (response) {
       // .log(response.data);
       tabledata = response.data;
@@ -126,7 +126,7 @@ class Asset extends React.Component<any, IDetailsListDocumentsExampleState>  {
   public primarybuttonclick(ev: any): void {
     const data = {'asset': ev};
     if (data){
-      axios.post('http://localhost:8000/assetsbutton',data)
+      axios.post('/assetsbutton',data)
       .then(function (response) { 
         console.log(response);
       });

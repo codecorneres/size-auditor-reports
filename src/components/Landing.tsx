@@ -188,7 +188,7 @@ class Landing extends React.Component<any, IDetailsListDocumentsExampleState>  {
     public primarybuttonclick(ev: any): void {
       const data = {'asset': ev};
       if (data){
-        axios.post('http://localhost:8000/assetsbutton',data)
+        axios.post('/assetsbutton',data)
         .then(function (response) { 
           console.log(response);
         });
@@ -202,7 +202,7 @@ class Landing extends React.Component<any, IDetailsListDocumentsExampleState>  {
     public async getRepositoryAssetsList(that: any)
     {
       let tabledata: any =  [];
-      await axios.get('http://localhost:8000/AssetsData')
+      await axios.get('/AssetsData')
         .then(function (response) {
         // console.log(response);
         tabledata = response.data;
@@ -221,7 +221,7 @@ class Landing extends React.Component<any, IDetailsListDocumentsExampleState>  {
     }
     public  async getRepositoryModuleList(that: any){
       let tabledata2: any =  [];
-     await axios.get('http://localhost:8000/modulesData')
+     await axios.get('/modulesData')
         .then(function (response) {
         // console.log(response);
         tabledata2 = response.data;

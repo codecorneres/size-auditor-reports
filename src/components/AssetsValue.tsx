@@ -109,7 +109,7 @@ class AssetsValue extends React.Component<any, IDetailsListDocumentsExampleState
     }]*/
     _items = [];
     let tabledata: any =  [];
-    axios.get('http://localhost:8000/AssetsValueData')
+    axios.get('/AssetsValueData')
         .then(function (response) {
         // console.log(response);
         tabledata = response.data;

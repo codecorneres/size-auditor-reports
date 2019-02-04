@@ -38,7 +38,7 @@ class ExpressFileUpload extends React.Component<any, any>  {
     data.append('file', this.state.selectedFile, this.state.selectedFile.name);
     data.append('file2', this.state.selectedFile2,this.state.selectedFile2.name);
     if(this.state.selectedFile.name && this.state.selectedFile2.name !== ''){
-      axios.post('http://localhost:8000/ExpressAsset',data)
+      axios.post('/ExpressAsset',data)
       .then(function (response) {
        console.log(response);
        that.setState({ shouldRedirect: true });

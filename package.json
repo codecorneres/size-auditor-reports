@@ -1,8 +1,8 @@
 {
-  "name": "my-tsapp",
+  "name": "size-auditor-report",
   "version": "0.1.0",
-  "private": true,
-  "main": "app.js",
+  "main": "build/size-auditor-report/app.js",
+  "types": "build/size-auditor-report/app.js.map",
   "dependencies": {
     "@syncfusion/ej2-react-inputs": "^16.4.47",
     "@types/classnames": "^2.2.7",
@@ -66,7 +66,7 @@
     "type": "git",
     "url": "git+https://github.com/codecorneres/size-auditor-report.git"
   },
-  "keywords": ["Hello", "Greeter"],
+  "keywords": ["Hello", "codecorneres"],
   "author": "C-J",
   "license": "ISC",
   "bugs": {

@@ -120,7 +120,7 @@ class Module extends React.Component<any, IDetailsListDocumentsExampleState>  {
   public getRepositoryList(that: any)
   {
     let tabledata: any =  [];
-    axios.get('http://localhost:8000/modulesData')
+    axios.get('/modulesData')
       .then(function (response) {
       // console.log(response);
       tabledata= response.data;

@@ -189,7 +189,7 @@ class Carousel extends React.Component<any, any>  {
     {
       data.append('file', this.state.selectedFile, this.state.selectedFile.name);
       data.append('file2', this.state.selectedFile2, this.state.selectedFile2.name);
-      axios.post('http://localhost:8000/ExpressAsset',data)
+      axios.post('/ExpressAsset',data)
       .then(function (response) { 
         // console.log(response);
         that.setState({ shouldRedirect: true });
@@ -210,9 +210,9 @@ class Carousel extends React.Component<any, any>  {
       data.append('file', this.state.selectedFile3, this.state.selectedFile3.name);
       data.append('modules', this.state.firstinput);
        const that = this;
-      axios.post('http://localhost:8000/Asset',data)
+      axios.post('/Asset',data)
       .then(function (response) {
-        axios.post('http://localhost:8000/saveFile',{'modules':that.state.firstinput}).then(function (resp: any) {
+        axios.post('/saveFile',{'modules':that.state.firstinput}).then(function (resp: any) {
            // localStorage.setItem('module', JSON.stringify(resp.data));
            that.setState({ shouldRedirect: true });
         });
@@ -224,11 +224,11 @@ class Carousel extends React.Component<any, any>  {
     if(this.state.secondinput && this.state.thirdinput !== '')
     {
       const that = this;
-      axios.post('http://localhost:8000/saveAssetFile',{'asset':this.state.secondinput}).then(function (response: any) {
+      axios.post('/saveAssetFile',{'asset':this.state.secondinput}).then(function (response: any) {
 
         // localStorage.setItem('asset', JSON.stringify(response.data));
       });
-      axios.post('http://localhost:8000/saveFile',{'modules':this.state.thirdinput}).then(function (response: any) {
+      axios.post('/saveFile',{'modules':this.state.thirdinput}).then(function (response: any) {
        //  localStorage.setItem('module', JSON.stringify(response.data));
         that.setState({ shouldRedirect: true });
       });
