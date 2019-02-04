@@ -15,8 +15,6 @@ const yargs = require('yargs');
 const argv = yargs.argv;
 let assets=argv.assets;
 let modules=argv.modules;
-console.log(assets);
-console.log(modules);
 
 app.use(fileUpload());
 app.use(cors());

@@ -55,17 +55,37 @@
     "zip-stream": "^2.0.1"
   },
   "scripts": {
-    "start": "node app.js start",
-    "build": "react-scripts-ts build",
-    "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject"
+    "start": "react-scripts-ts start",
+    "build": "tsc",
+    "test": "jest --config jestconfig.json --passWithNoTests",
+    "eject": "react-scripts-ts eject",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+    "lint": "tslint -p tsconfig.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codecorneres/size-auditor-report.git"
+  },
+  "keywords": ["Hello", "Greeter"],
+  "author": "C-J",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/codecorneres/size-auditor-report.git/issue"
   },
   "devDependencies": {
     "@types/history": "^4.7.2",
-    "@types/jest": "^23.3.12",
+    "@types/jest": "^23.3.13",
     "@types/node": "^10.12.18",
     "@types/react": "^16.7.21",
     "@types/react-dom": "^16.0.11",
+    "jest": "^24.0.0",
+    "prettier": "^1.16.4",
+    "ts-jest": "^23.10.5",
+    "tslint": "^5.12.1",
+    "tslint-config-prettier": "^1.17.0",
     "typescript": "^3.2.2"
-  }
+  },
+  "files": [
+    "build/**/*"
+  ]
 }

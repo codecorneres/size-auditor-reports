@@ -112,7 +112,7 @@ class Feedback extends React.Component<any, any>  {
                             />
                             </div>
                             <div className="feedbacktablediv"> 
-                            <TextField placeholder="Search..." label="Filter by Asset:" onChange={this._onChangeText} className="docs-TextFieldExample"/>
+                            <TextField placeholder="Search..." label="Filter by FeedBack:" onChange={this._onChangeText} className="docs-TextFieldExample"/>
                             <MarqueeSelection selection={this._selection}>
                                 <DetailsList
                                     items={items}

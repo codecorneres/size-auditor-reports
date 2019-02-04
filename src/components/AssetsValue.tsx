@@ -141,7 +141,7 @@ class AssetsValue extends React.Component<any, IDetailsListDocumentsExampleState
           <div className="ms-Grid-col ms-sm12 ms-md4 ms-lg2" />
           <div className="ms-Grid-col ms-sm12 ms-md4 ms-lg8">
             <div className="Apps"> 
-              <TextField placeholder="Search..." label="Filter by Asset:" onChange={this._onChangeText} className="docs-TextFieldExample"/>
+              <TextField placeholder="Search..." label="Filter by Module:" onChange={this._onChangeText} className="docs-TextFieldExample"/>
               <MarqueeSelection selection={this._selection}>
               <DetailsList
                 items={items}
@@ -173,7 +173,7 @@ class AssetsValue extends React.Component<any, IDetailsListDocumentsExampleState
   }
   
   private _onChangeText = (ev: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, text: string): void => {
-    this.setState({ items: text ? _items.filter(i => i.assets.toLowerCase().indexOf(text) > -1) : _items });
+    this.setState({ items: text ? _items.filter(i => i.module.toLowerCase().indexOf(text) > -1) : _items });
   };
 
   private _onColumnClick = (ev: React.MouseEvent<HTMLElement>, column: IColumn): void => {
