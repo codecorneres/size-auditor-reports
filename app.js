@@ -10,6 +10,7 @@ const AdmZip = require('adm-zip');
 var unzip = require('unzip');
 const fileUpload = require('express-fileupload');
 const cors = require('cors');
+const opn = require('opn');
 const yargs = require('yargs');
 const argv = yargs.argv;
 let assets=argv.assets;
@@ -163,7 +164,7 @@ app.post('/ExpressAsset', (req, res, next) => {
 /*---Get json files------*/
 app.get('/AssetsData',async function(req, res, next) {
   const assetsData = __dirname +"/src/upload/assetsData/assetsData.json";
-  if(assets == undefined){
+  if(assets === undefined){
     assets = assetsData;
   }
   await fs.readFile(assets, 'utf-8' , function(err, buf) {
@@ -172,7 +173,7 @@ app.get('/AssetsData',async function(req, res, next) {
 })
 app.get('/modulesData',async function(req, res, next) {
   const moduleData = __dirname +"/src/upload/modulesData/modulesData.json";
-  if(modules == undefined){
+  if(modules === undefined){
     modules = moduleData;
   }
   await fs.readFile(modules, 'utf-8' ,async function(err, buf) {
@@ -185,9 +186,12 @@ app.get('/AssetsValueData',async function(req, res, next) {
   });
 })
 
-/*app.use(express.static(__dirname + '/build'));
+app.use(express.static(__dirname + '/build'));
 app.get('/', function(req,res) {    
   res.sendFile(path.join(__dirname+'/build/index.html'));
 });
-*/
+
+/*---Default browser open ----*/
+opn('http://localhost:8000');
+
 app.listen(port, () => console.log(`Listening on port ${port}`));

@@ -2,6 +2,7 @@
   "name": "my-tsapp",
   "version": "0.1.0",
   "private": true,
+  "main": "app.js",
   "dependencies": {
     "@syncfusion/ej2-react-inputs": "^16.4.47",
     "@types/classnames": "^2.2.7",
@@ -30,6 +31,7 @@
     "morgan": "^1.9.1",
     "multer": "^1.4.1",
     "office-ui-fabric-react": "^6.124.1",
+    "opn": "^5.4.0",
     "pure-react-carousel": "^1.17.0",
     "react": "^16.7.0",
     "react-bootstrap": "^0.32.4",
@@ -53,7 +55,7 @@
     "zip-stream": "^2.0.1"
   },
   "scripts": {
-    "start": "react-scripts-ts start",
+    "start": "node app.js start",
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject"
