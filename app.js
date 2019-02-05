@@ -33,28 +33,6 @@ app.use(function (req, res, next) {
 
 const port = process.env.PORT || 8000;
 app.set('port', port);
-/*const server = http.createServer(app);
-server.listen(port, () => console.log(`Listening on port ${port}`));*/
-/*---Upload File of carousel use multer--*/
-/*const storage = multer.diskStorage({
-  destination: `${__dirname}/src/upload/assetsData`,
-  filename: function(req, file, cb){
-     cb(null,"assetsData.json");
-  }
-});
-const upload = multer({
-  storage: storage,
-}).single("file");
-
-const storages = multer.diskStorage({
-  destination: `${__dirname}/src/upload/`,
-  filename: function(req, file, cb){
-     cb(null,"moduleData.json");
-  }
-});
-const uploads = multer({
-  storage: storages,
-}).single("file");*/
 
 app.post("/Asset", async (req, res) => {
   let imageFile = req.files.file;
@@ -65,11 +43,6 @@ app.post("/Asset", async (req, res) => {
     res.json({file: `src/upload/assetsData.json`});
   });
 });
-/*app.post('/modules',uploads, async (req, res) => {
-  console.log(req.files);
-  res.status(200).send(req.file);
-});*/
-
 
 /*---Zip unzip url file and Get Data ---*/
 app.post('/saveFile',async function(req, res){
