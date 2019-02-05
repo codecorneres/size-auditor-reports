@@ -1,8 +1,8 @@
 {
-  "name": "size-auditor-report",
-  "version": "0.1.0",
-  "main": "build/size-auditor-report/app.js",
-  "types": "build/size-auditor-report/app.js.map",
+  "name": "size-audit-report",
+  "version": "1.0.0",
+  "main": "app.js",
+  "types": "app.js.map",
   "dependencies": {
     "@syncfusion/ej2-react-inputs": "^16.4.47",
     "@types/classnames": "^2.2.7",
@@ -69,9 +69,6 @@
   "keywords": ["Hello", "codecorneres"],
   "author": "C-J",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/codecorneres/size-auditor-report.git/issue"
-  },
   "devDependencies": {
     "@types/history": "^4.7.2",
     "@types/jest": "^23.3.13",
