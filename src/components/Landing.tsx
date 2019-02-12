@@ -238,36 +238,7 @@ class Landing extends React.Component<any, IDetailsListDocumentsExampleState>  {
       that.setState({items2: currentFive2}); 
       });
     }
-   /* public getRepositoryList3(that: any)
-    {
-      if (_items2.length === 0) {
-          _items2.push()
-          const newFile = modules.map((repository: any, index: number) => {
-          return { serial: index+1,...repository};
-          });
-          _items2 = newFile;
-
-          const indexOfLastTodo = that.state.currentPage * that.state.todosPerPage;
-          const indexOfFirstTodo = indexOfLastTodo - that.state.todosPerPage;
-          currentFive = _items2.slice(indexOfFirstTodo, indexOfLastTodo);
-      } 
-     that.setState({items2: currentFive}); 
-    }
-    public getRepositoryList4(that: any)
-    {  
-      const tabledata = asset;
-      if (_items.length === 0) {
-          _items.push()
-          const newFile = tabledata.map((repository: any, index: number) => {
-          return { serial: index+1,...repository};
-          });
-          _items = newFile;
-          const indexOfLastTodo = that.state.currentPage * that.state.todosPerPage;
-          const indexOfFirstTodo = indexOfLastTodo - that.state.todosPerPage;
-          currentFive2 = _items.slice(indexOfFirstTodo, indexOfLastTodo);
-      } 
-     that.setState({items: currentFive2}); 
-    }*/
+    
     public render(): JSX.Element {
       const { columns,columns2, isCompactMode, items, items2, isModalSelection} = this.state;
       return (

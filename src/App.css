@@ -47,10 +47,10 @@ ul li .ms-Button{
 }
 
 .bdy{
-  margin: 50px 0px 0px 0px !important;
+  margin: 30px 0px 0px 0px !important;
 }
 .ms-Nav-navItems li a:focus, a:active, a:hover{
-  color: #337ab7 !important;
+  color: rgb(0, 120, 212) !important;
   text-decoration: none !important;
   font-weight: 500;
 }
@@ -180,4 +180,19 @@ a:focus {
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   display: inline-flex;
+}
+/*Back button css*/
+.bckrw{
+  margin-top: 20px;
+}
+.bckrw .ms-Link {
+  font-weight: 600;
+  color: #3b3c3e !important;
+}
+.bckrw .ms-Link:hover{
+  color:rgb(0, 120, 212) !important;
+}
+.bckrw .ms-Link .ms-Button{
+  width: 25px;
+  height: 20px;
 }
