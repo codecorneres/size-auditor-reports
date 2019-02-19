@@ -33,7 +33,7 @@ app.use(function (req, res, next) {
 
 const port = process.env.PORT || 8000;
 app.set('port', port);
-/*
+
 app.post("/Asset", async (req, res) => {
   let imageFile = req.files.file;
   imageFile.mv(`${__dirname}/src/upload/assetsData/assetsData.json`, function(err) {
@@ -43,9 +43,9 @@ app.post("/Asset", async (req, res) => {
     res.json({file: `src/upload/assetsData.json`});
   });
 });
-*/
-/*---Zip unzip url file and Get Data ---*/
-/* app.post('/saveFile',async function(req, res){
+
+/*---Zip unzip url file and Get Data ---*/ 
+app.post('/saveFile',async function(req, res){
   const url = req.body.modules;
   const writer = fs.createWriteStream(`${__dirname}/getzip/modulesData.zip`);
   const response = await Axios({
@@ -90,7 +90,7 @@ app.post('/saveAssetFile', async function(req, res){
     })
     writer.on('error', reject)
   });
-});*/
+});
 /*---Fetch And Post Data Of Feddback page---*/
 app.get('/feedback', async function(req, res){
   const url =  'https://twentyfourhourfitness.herokuapp.com/getfeedback';
