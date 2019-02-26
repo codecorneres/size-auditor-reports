@@ -5,6 +5,7 @@ import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection';
 // import { jsonModuleResponse } from './../upload/moduleData';
 import { Link } from 'office-ui-fabric-react/lib/Link';
 import Layout from './../Layout';
+import ExpressFileUpload from './ExpressFileUpload';
 import { PrimaryButton } from 'office-ui-fabric-react/lib/Button';
 import axios from 'axios';
 
@@ -43,8 +44,8 @@ class Landing extends React.Component<any, IDetailsListDocumentsExampleState>  {
         key: 'column1',
         name: 'Serial',
         fieldName: 'serial',
-        minWidth: 100,
-        maxWidth: 120,
+        minWidth: 130,
+        maxWidth: 150,
         isResizable: true,
        // onColumnClick: this._onColumnClick,
         data: 'number',
@@ -57,8 +58,8 @@ class Landing extends React.Component<any, IDetailsListDocumentsExampleState>  {
         key: 'column2',
         name: 'Asset',
         fieldName: 'asset',
-        minWidth: 300,
-        maxWidth: 320,
+        minWidth: 400,
+        maxWidth: 420,
         isResizable: true,
         // onColumnClick: this._onColumnClick,
         data: 'string',
@@ -71,8 +72,8 @@ class Landing extends React.Component<any, IDetailsListDocumentsExampleState>  {
         key: 'column3',
         name: 'Size Difference',
         fieldName: 'sizeDifference',
-        minWidth: 100,
-        maxWidth: 120,
+        minWidth: 150,
+        maxWidth: 180,
         isResizable: true,
         isCollapsible: true,
         data: 'string',
@@ -86,8 +87,8 @@ class Landing extends React.Component<any, IDetailsListDocumentsExampleState>  {
         key: 'column4',
         name: 'Action',
         fieldName: 'Action',
-        minWidth: 100,
-        maxWidth: 120,
+        minWidth: 130,
+        maxWidth: 150,
         isResizable: true,
         isCollapsible: true,
         data: 'string',
@@ -116,8 +117,8 @@ class Landing extends React.Component<any, IDetailsListDocumentsExampleState>  {
           key: 'column2',
           name: 'Module',
           fieldName: 'module',
-          minWidth: 150,
-          maxWidth: 170,
+          minWidth: 200,
+          maxWidth: 220,
           isResizable: true,
          // onColumnClick: this._onColumnClick,
           data: 'string',
@@ -130,8 +131,8 @@ class Landing extends React.Component<any, IDetailsListDocumentsExampleState>  {
           key: 'column3',
           name: 'Size Difference',
           fieldName: 'sizeDifference',
-          minWidth: 70,
-          maxWidth: 90,
+          minWidth: 170,
+          maxWidth: 190,
           isCollapsible: true,
           data: 'string',
          // onColumnClick: this._onColumnClick,
@@ -144,8 +145,8 @@ class Landing extends React.Component<any, IDetailsListDocumentsExampleState>  {
             key: 'column4',
             name: 'Assets Affected',
             fieldName: 'assetsImpactedCount',
-            minWidth: 50,
-            maxWidth: 70,
+            minWidth: 150,
+            maxWidth: 170,
             isResizable: true,
             isCollapsible: true,
             data: 'number',
@@ -243,11 +244,11 @@ class Landing extends React.Component<any, IDetailsListDocumentsExampleState>  {
       const { columns,columns2, isCompactMode, items, items2, isModalSelection} = this.state;
       return (
         <div>
+          <ExpressFileUpload />
           <Layout />
-          <div className="ms-Grid-row bdy">
-            <div className="ms-Grid-col ms-sm12 ms-md4 ms-lg2" />
-            <div className="ms-Grid-col ms-sm12 ms-md4 ms-lg8">
-            <div className="Apps">
+          <div className="flex bdy">
+            {/* <div className="ms-Grid-col ms-sm12 ms-md4 ms-lg2" /> */}
+            <div className="flex-direction Apps">
                 <div className="section1">  
                 <MarqueeSelection selection={this._selection}>
                 <DetailsList
@@ -285,7 +286,6 @@ class Landing extends React.Component<any, IDetailsListDocumentsExampleState>  {
                 </div>
               </div>
             </div>
-          </div>
         </div>
       );
     }

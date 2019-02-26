@@ -120,18 +120,18 @@ app.post('/ExpressAsset', (req, res, next) => {
     if (err) {
       return res.status(500).send(err);
     }
-    let imageFile2 = req.files.file2;
+    res.json({file: `src/upload/assetsData.json`});
+  });
+})
+app.post('/Expressmodules', (req, res, next) => {
+  let imageFile2 = req.files.file2;
     imageFile2.mv(`${__dirname}/src/upload/modulesData/modulesData.json`, function(errs) {
       if (errs) {
         return res.status(500).send(errs);
       }
       res.json({file: `src/upload/modulesData.json`});
     });
-  });
 })
-/*app.post('/Expressmodules', (req, res, next) => {
- //
-})*/
 /*---Get json files------*/
 app.get('/AssetsData',async function(req, res, next) {
   const assetsData = __dirname +"/src/upload/assetsData/assetsData.json";

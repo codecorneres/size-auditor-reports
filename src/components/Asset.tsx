@@ -8,6 +8,7 @@ import { Link } from 'office-ui-fabric-react/lib/Link';
 // import { jsonResponse } from './../upload/AssetsData';
 import Layout from './../Layout';
 import { PrimaryButton } from 'office-ui-fabric-react/lib/Button';
+import ExpressFileUpload from './ExpressFileUpload';
 
 let _items: IDocument[] = [];
 export interface IDetailsListDocumentsExampleState {
@@ -33,8 +34,8 @@ class Asset extends React.Component<any, IDetailsListDocumentsExampleState>  {
       key: 'column1',
       name: 'Serial',
       fieldName: 'serial',
-      minWidth: 100,
-      maxWidth: 120,
+      minWidth: 120,
+      maxWidth: 150,
       isRowHeader: true,
       isResizable: true,
       isSorted: true,
@@ -52,8 +53,8 @@ class Asset extends React.Component<any, IDetailsListDocumentsExampleState>  {
       key: 'column2',
       name: 'Asset',
       fieldName: 'asset',
-      minWidth: 300,
-      maxWidth: 320,
+      minWidth: 400,
+      maxWidth: 450,
       isResizable: true,
       onColumnClick: this._onColumnClick,
       data: 'string',
@@ -66,8 +67,8 @@ class Asset extends React.Component<any, IDetailsListDocumentsExampleState>  {
       key: 'column3',
       name: 'Size Difference',
       fieldName: 'sizeDifference',
-      minWidth: 100,
-      maxWidth: 120,
+      minWidth: 150,
+      maxWidth: 180,
       isResizable: true,
       isCollapsible: true,
       data: 'string',
@@ -81,8 +82,8 @@ class Asset extends React.Component<any, IDetailsListDocumentsExampleState>  {
       key: 'column4',
       name: 'Action',
       fieldName: 'Action',
-      minWidth: 100,
-      maxWidth: 120,
+      minWidth: 120,
+      maxWidth: 150,
       isResizable: true,
       isCollapsible: true,
       data: 'string',
@@ -136,11 +137,11 @@ class Asset extends React.Component<any, IDetailsListDocumentsExampleState>  {
     const { columns, isCompactMode, items, isModalSelection} = this.state;
     return (
       <div>
+        <ExpressFileUpload />
         <Layout />
-        <div className="ms-Grid-row bdy">
-          <div className="ms-Grid-col ms-sm12 ms-md4 ms-lg2" />
-          <div className="ms-Grid-col ms-sm12 ms-md4 ms-lg8">
-            <div className="Apps">
+        <div className="flex bdy">
+          {/* <div className="ms-Grid-col ms-sm12 ms-md4 ms-lg2" /> */}
+          <div className="flex-direction Apps">
               <TextField placeholder="Search..." label="Filter by Asset:" onChange={this._onChangeText} className="docs-TextFieldExample"/>
               <MarqueeSelection selection={this._selection}>
                 <DetailsList
@@ -159,7 +160,6 @@ class Asset extends React.Component<any, IDetailsListDocumentsExampleState>  {
               </MarqueeSelection>
             </div>
           </div>
-        </div>
       </div>
     );
   }

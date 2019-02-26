@@ -19,13 +19,13 @@ class App extends React.Component<any, any>  {
       <div className="App">
         <Router history={history}>
           <Switch>
-            <Route exact path='/carousel' component={Carousel} />
             <Route exact path='/' component={Landing} />
             <Route exact path='/Module' component={Module} />
             <Route exact path='/Assets' component={Asset} />
             <Route exact path='/Pyramid' component={Pyramid} />
             <Route exact path='/Assets/:name' component={AssetsValue} />
             <Route exact path='/Feedback' component={Feedback} />
+            <Route exact path='/carousel' component={Carousel} />
              <Route exact path='/ExpressFileUpload' component={ExpressFileUpload} />
           </Switch>
         </Router>

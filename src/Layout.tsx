@@ -8,27 +8,29 @@ class Layout extends React.Component<any, any>  {
   
     public render(): JSX.Element {
       return (
-        <div className="ms-Grid">
-          <div className="ms-Grid-row navrow">
-            <div className="ms-Grid-col ms-sm12 ms-md4 ms-lg3 headr"><h3><Link href="/">Size Auditor Report</Link></h3></div>
-            <div className="ms-Grid-col ms-sm12 ms-md8 ms-lg9">
+        <div className="flex">
+          <div className="flex-direction navrow">
+          <h5 className="h3cl"><b>RESULTS</b></h5>
+            <div className="flex-container">
               <Nav
                 groups={[
                   {
                     links: [
-                      { name: 'Module View', key: 'Module View', url: '/Module' },
-                      { name: 'Asset View', key: 'Asset View', url: '/Assets' },
-                      { name: 'Pyramid view', key: 'Pyramid view', url: '/Pyramid' },
-                      { name: 'Feedback', key: 'Feedback', url: '/Feedback' }
+                      { name: 'Overview', key: 'Overview', url: '/' },
+                      { name: 'Bundles', key: 'Asset View', url: '/Assets' },
+                      { name: 'Modules', key: 'Module View', url: '/Module' }
+                      
+                      // { name: 'Pyramid view', key: 'Pyramid view', url: '/Pyramid' },
+                      // { name: 'Feedback', key: 'Feedback', url: '/Feedback' }
                     ]
                   }
                 ]}
               />
             </div>
           </div>
-          <div className="ms-Grid-row bckrw">
-            <div className="ms-Grid-col ms-sm12 ms-md4 ms-lg2" />
-            <div className="ms-Grid-col ms-sm12 ms-md8 ms-lg10">
+          <div className="flex-container bckrw">
+            {/* <div className="ms-Grid-col ms-sm12 ms-md4 ms-lg2" /> */}
+            <div className="col-md-12">
               <Link onClick={() => {BrowserHistory.goBack() }} > 
                 <IconButton iconProps={{ iconName: 'Back' }} title="Back" ariaLabel="Back" />
                 <span> Go Back</span>

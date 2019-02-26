@@ -6,6 +6,7 @@ import { DetailsList, DetailsListLayoutMode, Selection, SelectionMode, IColumn }
 import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection';
 // import { jsonModuleResponse } from './../upload/moduleData';
 import Layout from './../Layout';
+import ExpressFileUpload from './ExpressFileUpload';
 
 let _items: IDocument[] = [];
 export interface IDetailsListDocumentsExampleState {
@@ -32,8 +33,8 @@ class Module extends React.Component<any, IDetailsListDocumentsExampleState>  {
       key: 'column1',
       name: 'Serial',
       fieldName: 'serial',
-      minWidth: 50,
-      maxWidth: 70,
+      minWidth: 70,
+      maxWidth: 90,
       isResizable: true,
       onColumnClick: this._onColumnClick,
       data: 'number',
@@ -46,8 +47,8 @@ class Module extends React.Component<any, IDetailsListDocumentsExampleState>  {
       key: 'column2',
       name: 'Module',
       fieldName: 'module',
-      minWidth: 150,
-      maxWidth: 170,
+      minWidth: 180,
+      maxWidth: 200,
       isResizable: true,
       onColumnClick: this._onColumnClick,
       data: 'string',
@@ -60,8 +61,8 @@ class Module extends React.Component<any, IDetailsListDocumentsExampleState>  {
       key: 'column3',
       name: 'Size Difference',
       fieldName: 'sizeDifference',
-      minWidth: 70,
-      maxWidth: 90,
+      minWidth: 90,
+      maxWidth: 110,
       isRowHeader: true,
       isSorted: true,
       isSortedDescending: false,
@@ -79,8 +80,8 @@ class Module extends React.Component<any, IDetailsListDocumentsExampleState>  {
       key: 'column4',
       name: 'Assets Affected',
       fieldName: 'assetsImpactedCount',
-      minWidth: 50,
-      maxWidth: 70,
+      minWidth: 80,
+      maxWidth: 100,
       isResizable: true,
       isCollapsible: true,
       data: 'number',
@@ -140,11 +141,11 @@ class Module extends React.Component<any, IDetailsListDocumentsExampleState>  {
    
     return (
       <div>
+        <ExpressFileUpload />
         <Layout />
-        <div className="ms-Grid-row bdy">
-          <div className="ms-Grid-col ms-sm12 ms-md4 ms-lg2" />
-          <div className="ms-Grid-col ms-sm12 ms-md4 ms-lg8">
-            <div className="Apps">    
+        <div className="flex bdy">
+          {/* <div className="ms-Grid-col ms-sm12 ms-md4 ms-lg2" /> */}
+          <div className="flex-direction Apps">   
               <TextField placeholder="Search..." label="Filter by Module:" onChange={this._onChangeText} />
               <MarqueeSelection selection={this._selection}>
                 <DetailsList
@@ -163,7 +164,6 @@ class Module extends React.Component<any, IDetailsListDocumentsExampleState>  {
             </div>
           </div>
         </div>
-      </div>
     );
   }
 

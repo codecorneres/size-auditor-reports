@@ -47,7 +47,7 @@ ul li .ms-Button{
 }
 
 .bdy{
-  margin: 30px 0px 0px 0px !important;
+  margin: 30px 15px 30px 15px !important;
 }
 .ms-Nav-navItems li a:focus, a:active, a:hover{
   color: rgb(0, 120, 212) !important;
@@ -158,7 +158,16 @@ a:focus {
 }
 /*--ExpressFile Upload--*/
 .fileuploaddiv{
-  height: 400px;
+  width: 95%;
+}
+.spandv{
+  top: 20%;
+  position: absolute;
+  left: 49%;
+  font-size: 25px;
+}
+.dv2{
+  float: right;
 }
 .fileuploadbtndv{
   position: absolute;
@@ -195,4 +204,64 @@ a:focus {
 .bckrw .ms-Link .ms-Button{
   width: 25px;
   height: 20px;
+}
+/*file Uplload */
+.container-fluid{
+  padding-right: 0px !important;
+  padding-left: 0px !important;
+}
+
+.h3cl{
+  padding: 10px 23px;
+}
+.inputfile{
+  margin-top: 30px;
+}
+
+/* -----flex---- */
+.flex-container {
+  display: flex;
+  flex-flow: row; 
+  flex-wrap: wrap;
+}
+
+.flex-direction{
+  flex-direction: column;
+  width: 100%;
+}
+.Grid--cols-2{
+  display: flex;
+}
+.Grid--cols-2 > .Grid-cell {
+  flex: 0 0 100%; 
+}
+.flex-cell{
+  flex: 1;
+}
+.header{
+  background: #3c3c3c;
+  color: #e4e4e4;
+  display: flex;
+}
+.ms-FocusZone{
+  width: 100%;
+}
+@media (max-width: 768px) {
+  .header {
+      flex-wrap: wrap;
+  }
+  .Grid--cols-2{
+    flex-direction: column;
+  }
+  .flex-cell > div{
+    float: left;
+    margin-top: 10px; 
+  }
+  .bdy{
+    margin-right: 10px !important;
+    margin-left: 10px !important;
+  }
+  .flex-cell > span {
+    display: none;
+  }
 }
