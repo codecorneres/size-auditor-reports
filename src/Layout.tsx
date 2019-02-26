@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { Link } from 'office-ui-fabric-react/lib/Link';
+// import { Link } from 'office-ui-fabric-react/lib/Link';
 import { Nav } from 'office-ui-fabric-react/lib/Nav';
-import { createBrowserHistory } from 'history';
-import { IconButton } from 'office-ui-fabric-react/lib/Button';
-const BrowserHistory = createBrowserHistory();
+// import { createBrowserHistory } from 'history';
+// import { IconButton } from 'office-ui-fabric-react/lib/Button';
+// const BrowserHistory = createBrowserHistory();
 class Layout extends React.Component<any, any>  {
   
     public render(): JSX.Element {
@@ -28,15 +28,14 @@ class Layout extends React.Component<any, any>  {
               />
             </div>
           </div>
-          <div className="flex-container bckrw">
-            {/* <div className="ms-Grid-col ms-sm12 ms-md4 ms-lg2" /> */}
+          {/* <div className="flex-container bckrw"> 
             <div className="col-md-12">
               <Link onClick={() => {BrowserHistory.goBack() }} > 
                 <IconButton iconProps={{ iconName: 'Back' }} title="Back" ariaLabel="Back" />
                 <span> Go Back</span>
               </Link> 
             </div>
-          </div>
+          </div> */}
         </div> 
       );
     }
