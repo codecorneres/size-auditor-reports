@@ -3,6 +3,7 @@ import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { DetailsList, DetailsListLayoutMode, Selection, SelectionMode, IColumn } from 'office-ui-fabric-react/lib/DetailsList';
 import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection';
 // import { jsonResponse } from './../upload/AssetsValueData';
+import ExpressFileUpload from './ExpressFileUpload';
 import Layout from './../Layout';
 import axios from 'axios';
 let _items: IDocument[] = [];
@@ -34,6 +35,7 @@ class AssetsValue extends React.Component<any, IDetailsListDocumentsExampleState
   private _selection: Selection;
   constructor(props: any) {
     super(props);
+    this.onUpdate = this.onUpdate.bind(this);
     const _columns: IColumn[] = [{
       key: 'column1',
       name: 'Serial',
@@ -102,11 +104,6 @@ class AssetsValue extends React.Component<any, IDetailsListDocumentsExampleState
   }
   public getRepositoryList(that: any)
   {
-   /* const tabledata= [{
-      serial : 1,
-      module: "module3.js",
-      sizeDifference: "+50"
-    }]*/
     _items = [];
     let tabledata: any =  [];
     axios.get('/AssetsValueData')
@@ -115,7 +112,6 @@ class AssetsValue extends React.Component<any, IDetailsListDocumentsExampleState
         tabledata = response.data;
         if (_items.length === 0) {
           for(const row of tabledata){
-            console.log(row.asset);
             if(row.asset === parameters){
                 const moduledata = row.modules;
                 _items.push()
@@ -128,19 +124,21 @@ class AssetsValue extends React.Component<any, IDetailsListDocumentsExampleState
           _items = that._sortItems(_items, 'Serial');
         }
         that.setState({items: _items});
-      });
-   
+    });
+  }
+  public onUpdate(data: any)
+  {
+    console.log(data);
   }
 
   public render(): JSX.Element {
     const { columns, isCompactMode, items, isModalSelection} = this.state;
     return (
       <div>
+        <ExpressFileUpload onUpdate={this.onUpdate}/>
         <Layout />
-        <div className="ms-Grid-row bdy">
-          <div className="ms-Grid-col ms-sm12 ms-md4 ms-lg2" />
-          <div className="ms-Grid-col ms-sm12 ms-md4 ms-lg8">
-            <div className="Apps"> 
+        <div className="flex bdy">
+          <div className="flex-direction Apps">
               <TextField placeholder="Search..." label="Filter by Module:" onChange={this._onChangeText} className="docs-TextFieldExample"/>
               <MarqueeSelection selection={this._selection}>
               <DetailsList
@@ -160,7 +158,6 @@ class AssetsValue extends React.Component<any, IDetailsListDocumentsExampleState
             </div>
           </div>
         </div>
-      </div> 
     );
   }
 

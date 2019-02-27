@@ -28,6 +28,7 @@ class Module extends React.Component<any, IDetailsListDocumentsExampleState>  {
   private _selection: Selection;
   constructor(props: any) {
     super(props);
+    this.onUpdate = this.onUpdate.bind(this);
     const _columns: IColumn[] = [
     {
       key: 'column1',
@@ -136,12 +137,33 @@ class Module extends React.Component<any, IDetailsListDocumentsExampleState>  {
       that.setState({items: _items});
     });
   }
+  public async onUpdate(data:any){
+    const that = this;
+    if(data === 'Modules'){
+      _items = [];
+      let tabledata: any =  [];
+    await axios.get('/modulesData')
+      .then(function (response) {
+      // console.log(response);
+      tabledata= response.data;
+      if (_items.length === 0) {
+        _items.push()
+        const newFile = tabledata.map((repository: any, index: number) => {
+          return { serial: index+1,...repository};
+        });
+        _items = newFile;
+        _items = that._sortItems(_items, 'serial');
+      } 
+      that.setState({items: _items});
+    });
+    }
+  }
   public render(): JSX.Element { 
     const { columns, isCompactMode, items, isModalSelection } = this.state;
    
     return (
       <div>
-        <ExpressFileUpload />
+        <ExpressFileUpload  onUpdate={this.onUpdate}/>
         <Layout />
         <div className="flex bdy">
           {/* <div className="ms-Grid-col ms-sm12 ms-md4 ms-lg2" /> */}

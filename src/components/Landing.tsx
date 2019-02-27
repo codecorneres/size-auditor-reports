@@ -40,6 +40,7 @@ class Landing extends React.Component<any, IDetailsListDocumentsExampleState>  {
   private _selection: Selection;
     constructor(props: any) {
       super(props);
+      this.onUpdate = this.onUpdate.bind(this);
       const _columns: IColumn[] = [{
         key: 'column1',
         name: 'Serial',
@@ -224,7 +225,6 @@ class Landing extends React.Component<any, IDetailsListDocumentsExampleState>  {
       let tabledata2: any =  [];
      await axios.get('/modulesData')
         .then(function (response) {
-        // console.log(response);
         tabledata2 = response.data;
         if (_items2.length === 0) {
           _items2.push()
@@ -240,11 +240,53 @@ class Landing extends React.Component<any, IDetailsListDocumentsExampleState>  {
       });
     }
     
+    public async onUpdate(data:any){
+      const that = this;
+      if (data === 'Assets') {
+        _items = [];
+        let tabledata: any =  [];
+        await axios.get('/AssetsData')
+        .then(function (response) {
+          tabledata = response.data;
+          if (_items.length === 0) {
+            _items.push()
+            const newFile = tabledata.map((repository: any, index: number) => {
+              return { serial: index+1,...repository};
+            });
+            _items = newFile;
+            const indexOfLastTodo = that.state.currentPage * that.state.todosPerPage;
+            const indexOfFirstTodo = indexOfLastTodo - that.state.todosPerPage;
+            currentFive = _items.slice(indexOfFirstTodo, indexOfLastTodo); 
+          }
+          that.setState({items: currentFive}); 
+        }); 
+      }
+      if(data === 'Modules'){
+        _items2 = [];
+        let tabledata2: any =  [];
+        await axios.get('/modulesData')
+         .then(function (response) {
+          tabledata2 = response.data;
+          if (_items2.length === 0) {
+            _items2.push()
+            const newFile = tabledata2.map((repository: any, index: number) => {
+            return { serial: index+1,...repository};
+            });
+            _items2 = newFile;
+            const indexOfLastTodo = that.state.currentPage * that.state.todosPerPage;
+            const indexOfFirstTodo = indexOfLastTodo - that.state.todosPerPage;
+            currentFive2 = _items2.slice(indexOfFirstTodo, indexOfLastTodo);
+          } 
+          that.setState({items2: currentFive2}); 
+        });
+      }
+    }
+    
     public render(): JSX.Element {
       const { columns,columns2, isCompactMode, items, items2, isModalSelection} = this.state;
       return (
         <div>
-          <ExpressFileUpload />
+          <ExpressFileUpload onUpdate={this.onUpdate}/>
           <Layout />
           <div className="flex bdy">
             {/* <div className="ms-Grid-col ms-sm12 ms-md4 ms-lg2" /> */}

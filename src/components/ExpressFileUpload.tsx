@@ -7,6 +7,7 @@ import { Icon } from 'office-ui-fabric-react/lib/Icon';
 class ExpressFileUpload extends React.Component<any, any>  {
   constructor(props: any) {
     super(props);
+    console.log(this.props);
     this.state = {
       selectedFile: 'Assets Data',
       selectedFile2: 'Modules Data',
@@ -25,23 +26,29 @@ class ExpressFileUpload extends React.Component<any, any>  {
     this.setState({
       selectedFile: event.target.files[0].name,
     })
+    const that = this;
     const data = new FormData();
     data.append('file', event.target.files[0], event.target.files[0].name);
     axios.post('/ExpressAsset',data)
     .then(function (response) {
      console.log(response);
+     that.props.onUpdate("Assets");
     });
+    
   }
   public handleselectedFile2(event: any){
     this.setState({
       selectedFile2: event.target.files[0].name,
     })
+    const that = this;
     const data = new FormData();
     data.append('file2', event.target.files[0],event.target.files[0].name);
     axios.post('/Expressmodules',data)
         .then(function (response) {
          console.log(response);
+         that.props.onUpdate("Modules");
       });
+    
   }
   // public handleUpload(){
   //   // const that = this;
